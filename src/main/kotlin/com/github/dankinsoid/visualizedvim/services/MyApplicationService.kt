@@ -1,6 +1,6 @@
-package org.jetbrains.plugins.template.services
+package com.github.dankinsoid.visualizedvim.services
 
-import org.jetbrains.plugins.template.MyBundle
+import com.github.dankinsoid.visualizedvim.MyBundle
 
 class MyApplicationService {
 
