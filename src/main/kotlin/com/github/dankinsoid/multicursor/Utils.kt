@@ -15,29 +15,28 @@ import kotlin.math.min
  *  and create mapping to <Plug>(prefix)[keys]
  */
 fun VimExtension.mapToFunctionAndProvideKeys(keys: String, handler: (Boolean) -> VimExtensionHandler) {
-    mapToFunctionAndProvideKeys(keys, "Q", handler(true))
-    mapToFunctionAndProvideKeys(keys, "q", handler(false))
+    mapToFunctionAndProvideKeys(keys, "mc", handler(false))
+    mapToFunctionAndProvideKeys(keys, "ms", handler(true))
 }
 
-private  fun VimExtension.mapToFunctionAndProvideKeys(keys: String, prefix: String, handler: VimExtensionHandler) {
-    val keys = "$prefix$keys"
+private fun VimExtension.mapToFunctionAndProvideKeys(keys: String, prefix: String, handler: VimExtensionHandler) {
     VimExtensionFacade.putExtensionHandlerMapping(
         MappingMode.NVO,
-        StringHelper.parseKeys(command(keys)),
+        StringHelper.parseKeys(command(prefix, keys)),
         owner,
         handler,
         false
     )
     VimExtensionFacade.putKeyMapping(
         MappingMode.NVO,
-        StringHelper.parseKeys(keys),
+        StringHelper.parseKeys("$prefix$keys"),
         owner,
-        StringHelper.parseKeys(command(keys)),
+        StringHelper.parseKeys(command(prefix, keys)),
         true
     )
 }
 
-private fun command(keys: String) = "<Plug>(multicursor-$keys)"
+private fun command(prefix: String, keys: String) = "<Plug>(multicursor-$prefix$keys)"
 
 fun IntRange.intersectionWith(other: IntRange): IntRange? {
     return if (this.hasIntersectionWith(other)) {
