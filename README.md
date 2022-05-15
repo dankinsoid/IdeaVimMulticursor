@@ -4,6 +4,10 @@
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 
+<!-- Plugin description -->
+This plugin brings multiple cursors and selections to `IdeaVim`
+<!-- Plugin description end -->
+
 ## Setup
 
 Install plugin from Intellij Idea Marketplace and add the following option on top of your `./ideavimrc`:

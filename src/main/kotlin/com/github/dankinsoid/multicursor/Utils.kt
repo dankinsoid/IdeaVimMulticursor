@@ -6,7 +6,6 @@ import com.maddyhome.idea.vim.extension.VimExtensionFacade
 import com.maddyhome.idea.vim.extension.VimExtensionHandler
 import com.intellij.openapi.editor.Editor
 import com.maddyhome.idea.vim.helper.StringHelper
-import org.jetbrains.plugins.notebooks.editor.hasIntersectionWith
 import kotlin.math.max
 import kotlin.math.min
 
@@ -39,7 +38,7 @@ private fun VimExtension.mapToFunctionAndProvideKeys(keys: String, prefix: Strin
 private fun command(prefix: String, keys: String) = "<Plug>(multicursor-$prefix$keys)"
 
 fun IntRange.intersectionWith(other: IntRange): IntRange? {
-    return if (this.hasIntersectionWith(other)) {
+    return if (this.contains(other.first) || this.contains(other.last) || other.contains(this.last) || other.contains(this.first)) {
         IntRange(max(this.first, other.first), min(this.last, other.last))
     } else {
         null
