@@ -1,4 +1,4 @@
-package com.github.dankinsoid.visualizedvim
+package com.github.dankinsoid.multicursor
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls

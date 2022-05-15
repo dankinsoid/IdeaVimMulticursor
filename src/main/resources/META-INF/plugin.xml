@@ -1,18 +1,13 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.dankinsoid.visualizedvim</id>
+    <id>com.github.dankinsoid.multicursor</id>
     <name>VisualizedVim</name>
     <vendor>dankinsoid</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>IdeaVIM</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.dankinsoid.visualizedvim.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.dankinsoid.visualizedvim.services.MyProjectService"/>
+    <extensions defaultExtensionNs="IdeaVIM">
+        <vimExtension implementation="com.github.dankinsoid.multicursor.IdeaVimMulticursor"/>
     </extensions>
-
-    <applicationListeners>
-        <listener class="com.github.dankinsoid.visualizedvim.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
 </idea-plugin>
