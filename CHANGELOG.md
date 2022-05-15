@@ -1,6 +1,6 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# VisualizedVim Changelog
+# IdeaVimMulticursor Changelog
 
 ## [Unreleased]
 ### Added

@@ -1,37 +1,47 @@
 # IdeaVimMulticursor
 
-![Build](https://github.com/dankinsoid/VisualizedVim/workflows/Build/badge.svg)
+![Build](https://github.com/dankinsoid/IdeaVimMulticursor/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 
-## Template ToDo list
-- [x] Create a new [IntelliJ Platform Plugin Template][template] project.
-- [ ] Get familiar with the [template documentation][template].
-- [ ] Verify the [pluginGroup](/gradle.properties), [plugin ID](/src/main/resources/META-INF/plugin.xml) and [sources package](/src/main/kotlin).
-- [ ] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html).
-- [ ] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate) for the first time.
-- [ ] Set the Plugin ID in the above README badges.
-- [ ] Set the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html).
-- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
+## Setup
 
-<!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
+Install plugin from Intellij Idea Marketplace and add the following option on top of your `./ideavimrc`:
 
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
+```
+set multicursor
+```
+also you can map commands, for example: `map q <Plug>(multicursor-ms/)`
 
-To keep everything working, do not remove `<!-- ... -->` sections. 
-<!-- Plugin description end -->
+After IdeaVim reboot you can use this plugin
 
+## Usage
+
+- Type `mc` (<ins>m</ins>ulti<ins>c</ins>ursor) and a vim command to create cursors
+- Type `ms` (<ins>m</ins>ulti<ins>s</ins>elect) and a vim command to select multiple items
+- If you previously selected some text, then the commands work only in the selected text
+- Supported vim commands: `/`, `f`, `t`, `w`, `W`, `b`, `B`, `e`, `E`
+
+### Example:
+type `ms/print` to select all `print`s in selected text 
+
+## License
+
+Just as IdeaVim, this plugin is licensed under the terms of the GNU Public License version 3 or any later version.
+
+## Credits
+
+Plugin icon is merged icons of IdeaVim plugin and a random sneaker by FreePic from flaticon.com
 ## Installation
 
 - Using IDE built-in plugin system:
   
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "VisualizedVim"</kbd> >
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "IdeaVimMulticursor"</kbd> >
   <kbd>Install Plugin</kbd>
   
 - Manually:
 
-  Download the [latest release](https://github.com/dankinsoid/VisualizedVim/releases/latest) and install it manually using
+  Download the [latest release](https://github.com/dankinsoid/IdeaVimMulticursor/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 
