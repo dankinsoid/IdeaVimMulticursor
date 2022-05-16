@@ -12,6 +12,7 @@ import com.maddyhome.idea.vim.extension.VimExtensionHandler
 import com.maddyhome.idea.vim.option.StrictMode
 import com.maddyhome.idea.vim.ui.ModalEntry
 import com.maddyhome.idea.vim.ui.ex.ExEntryPanel
+import kotlinx.coroutines.selects.whileSelect
 import java.awt.Font
 import java.awt.event.KeyEvent
 import javax.swing.KeyStroke
@@ -101,20 +102,20 @@ class IdeaVimMulticursor : VimExtension {
 		override fun execute(editor: Editor, context: DataContext) {
 			val offset = editor.caretModel.primaryCaret.offset
 			val range = IntRange(offset, offset)
-			selectedCarets.add(range)
-			highlighter.highlightSingleRange(editor, range)
+			if (selectedCarets.contains(range)) {
+				selectedCarets.remove(range)
+				highlighter.clearSingleRange(editor, range)
+			} else {
+				selectedCarets.add(range)
+				highlighter.highlightSingleRange(editor, range)
+			}
 		}
 	}
 
 	private class MulticursorRemoveHandler(private val highlighter: HighlightHandler): VimExtensionHandler {
 		override fun execute(editor: Editor, context: DataContext) {
-			val offset = editor.caretModel.primaryCaret.offset
-			val range = IntRange(offset, offset)
-			selectedCarets.remove(range)
-			highlighter.clearSingleRange(editor, range)
-			editor.caretModel.allCarets.first { it.offset == offset }.let {
-				editor.caretModel.removeCaret(it)
-			}
+			selectedCarets.clear()
+			highlighter.clearAllMulticursorHighlighters(editor)
 		}
 	}
 

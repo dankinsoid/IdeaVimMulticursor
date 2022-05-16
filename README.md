@@ -28,8 +28,8 @@ After IdeaVim reboot you can use this plugin
 
 
 - Type `mca` (<ins>m</ins>ulti<ins>c</ins>ursor <ins>a</ins>dd) to add a virtual caret
-- Type `mcd` (<ins>m</ins>ulti<ins>c</ins>ursor <ins>d</ins>elete) to remove a virtual caret
 - Type `mci` (<ins>m</ins>ulti<ins>c</ins>ursor <ins>i</ins>nsert) to insert real carets instead of virtual
+- Type `mcd` (<ins>m</ins>ulti<ins>c</ins>ursor <ins>d</ins>elete) to remove all virtual carets
 
 ### Example:
 type `ms/print` to select all `print`s in selected text 
