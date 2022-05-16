@@ -15,7 +15,7 @@ This plugin brings multiple cursors and selections to `IdeaVim`
 - Supported vim commands: `/`, `f`, `t`, `w`, `W`, `b`, `B`, `e`, `E`
 
 
-- Type `mca` (<ins>m</ins>ulti<ins>c</ins>ursor <ins>a</ins>dd) to add a virtual caret
+- Type `mca` (<ins>m</ins>ulti<ins>c</ins>ursor <ins>a</ins>dd) to add (or remove) a virtual caret
 - Type `mci` (<ins>m</ins>ulti<ins>c</ins>ursor <ins>i</ins>nsert) to insert real carets instead of virtual
 - Type `mcd` (<ins>m</ins>ulti<ins>c</ins>ursor <ins>d</ins>elete) to remove all virtual carets
 
