@@ -4,6 +4,8 @@
     <name>IdeaVimMulticursor</name>
     <vendor>dankinsoid</vendor>
 
+    <idea-version since-build="213"/>
+
     <depends>com.intellij.modules.platform</depends>
     <depends>IdeaVIM</depends>
 
