@@ -26,6 +26,11 @@ After IdeaVim reboot you can use this plugin
 - If you previously selected some text, then the commands work only in the selected text
 - Supported vim commands: `/`, `f`, `t`, `w`, `W`, `b`, `B`, `e`, `E`
 
+
+- Type `mca` (<ins>m</ins>ulti<ins>c</ins>ursor <ins>a</ins>dd) to add a virtual caret
+- Type `mcd` (<ins>m</ins>ulti<ins>c</ins>ursor <ins>d</ins>elete) to remove a virtual caret
+- Type `mci` (<ins>m</ins>ulti<ins>c</ins>ursor <ins>i</ins>nsert) to insert real carets instead of virtual
+
 ### Example:
 type `ms/print` to select all `print`s in selected text 
 
