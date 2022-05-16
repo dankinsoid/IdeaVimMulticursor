@@ -18,9 +18,9 @@ set multicursor
 also you can map commands, for example: 
 ```
 map q <Plug>(multicursor-ms/)
-map z <Plug>(multicursor-msa)
-map Z <Plug>(multicursor-msd)
-map ~ <Plug>(multicursor-msi)
+map z <Plug>(multicursor-mca)
+map Z <Plug>(multicursor-mcd)
+map ~ <Plug>(multicursor-mci)
 ```
 After IdeaVim reboot you can use this plugin
 
