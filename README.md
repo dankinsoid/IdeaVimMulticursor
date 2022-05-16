@@ -23,6 +23,8 @@ This plugin brings multiple cursors and selections to `IdeaVim`
 type `ms/print` to select all `print`s in selected text
 <!-- Plugin description end -->
 
+![Preview](preview.gif?raw=true)
+
 ## Setup
 
 Install plugin from Intellij Idea Marketplace and add the following option on top of your `./ideavimrc`:
