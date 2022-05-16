@@ -15,7 +15,11 @@ Install plugin from Intellij Idea Marketplace and add the following option on to
 ```
 set multicursor
 ```
-also you can map commands, for example: `map q <Plug>(multicursor-ms/)`
+also you can map commands, for example: 
+`map q <Plug>(multicursor-ms/)`
+`map z <Plug>(multicursor-msa)`
+`map Z <Plug>(multicursor-msd)`
+`map ~ <Plug>(multicursor-msi)`
 
 After IdeaVim reboot you can use this plugin
 
