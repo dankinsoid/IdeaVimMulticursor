@@ -34,8 +34,7 @@ also you can map commands, for example:
 ```
 map q <Plug>(multicursor-ms/)
 map z <Plug>(multicursor-mca)
-map Z <Plug>(multicursor-mcd)
-map ~ <Plug>(multicursor-mci)
+map Z <Plug>(multicursor-mci)
 ```
 After IdeaVim reboot you can use this plugin
 
