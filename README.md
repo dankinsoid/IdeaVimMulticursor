@@ -1,4 +1,4 @@
-# IdeaVimMulticursor
+![Icon](src/main/resources/META-INF/pluginIcon.svg?raw=true)# IdeaVimMulticursor
 
 ![Build](https://github.com/dankinsoid/IdeaVimMulticursor/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
