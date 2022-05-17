@@ -5,7 +5,6 @@ import com.intellij.openapi.editor.VisualPosition
 import kotlin.math.max
 import kotlin.math.min
 
-
 fun IntRange.intersectionWith(other: IntRange): IntRange? {
 	return if (this.contains(other.first) || this.contains(other.last) || other.contains(this.last) || other.contains(this.first)) {
 		IntRange(max(this.first, other.first), min(this.last, other.last))

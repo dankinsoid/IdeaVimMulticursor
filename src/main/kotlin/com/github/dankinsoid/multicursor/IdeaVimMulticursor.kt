@@ -9,10 +9,8 @@ import com.maddyhome.idea.vim.VimProjectService
 import com.maddyhome.idea.vim.extension.VimExtension
 import com.maddyhome.idea.vim.extension.VimExtensionFacade
 import com.maddyhome.idea.vim.extension.VimExtensionHandler
-import com.maddyhome.idea.vim.option.StrictMode
 import com.maddyhome.idea.vim.ui.ModalEntry
 import com.maddyhome.idea.vim.ui.ex.ExEntryPanel
-import kotlinx.coroutines.selects.whileSelect
 import java.awt.Font
 import java.awt.event.KeyEvent
 import javax.swing.KeyStroke
@@ -72,18 +70,12 @@ class IdeaVimMulticursor : VimExtension {
 		}
 	}
 
-	/**
-	 * This class acts as proxy for normal find commands because we need to update [lastSDirection]
-	 */
 	private class MultiselectHandler(private val rexeg: String, private val select: Boolean = false): VimExtensionHandler {
 		override fun execute(editor: Editor, context: DataContext) {
 			select(editor, rexeg, select)
 		}
 	}
 
-	/**
-	 * This class acts as proxy for normal find commands because we need to update [lastSDirection]
-	 */
 	private class MultiselectFHandler(private val offset: Int = 0, private val select: Boolean = false): VimExtensionHandler {
 		override fun execute(editor: Editor, context: DataContext) {
 			val char = getChar(editor) ?: return
@@ -145,7 +137,7 @@ class IdeaVimMulticursor : VimExtension {
 				val start = selections.minOf { it.first }
 				val chars = editor.document.charsSequence.subSequence(start, selections.maxOf { it.last })
 				val ranges = text.toRegex().findAll(chars).map { IntRange(it.range.first + start, it.range.last + start) }
-				return ranges.intersectionsWith(selections.asSequence())
+				return ranges.intersectionsWith(selections)
 			} else {
 				text.toRegex().findAll(editor.document.charsSequence).map { it.range }
 			}
@@ -174,7 +166,7 @@ class IdeaVimMulticursor : VimExtension {
 
 		fun clearAllMulticursorHighlighters(editor: Editor) {
 			sneakHighlighters.forEach { highlighter ->
-				editor.markupModel.removeHighlighter(highlighter) ?: StrictMode.fail("Highlighters without an editor")
+				editor.markupModel.removeHighlighter(highlighter)
 			}
 			sneakHighlighters.clear()
 		}
