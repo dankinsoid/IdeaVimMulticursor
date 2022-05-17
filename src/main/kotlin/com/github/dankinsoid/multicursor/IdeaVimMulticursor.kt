@@ -49,18 +49,19 @@ class IdeaVimMulticursor : VimExtension {
 			val panel = ExEntryPanel.getInstanceWithoutShortcuts()
 			panel.activate(editor, context, " ", "", 1)
 			ModalEntry.activate { key: KeyStroke ->
-				return@activate when {
-					key.keyCode == KeyEvent.VK_ESCAPE -> {
+				return@activate when (key.keyCode) {
+					KeyEvent.VK_ESCAPE -> {
 						panel.deactivate(true)
 						highlightHandler.clearAllMulticursorHighlighters(editor)
 						false
 					}
-					key.keyCode == KeyEvent.VK_ENTER -> {
+					KeyEvent.VK_ENTER -> {
 						highlightHandler.clearAllMulticursorHighlighters(editor)
 						panel.deactivate(false)
 						select(editor, panel.text, select)
 						false
-					} else -> {
+					}
+					else -> {
 						panel.handleKey(key)
 						highlightHandler.highlightMulticursorRange(editor, ranges(panel.text, editor))
 						true
