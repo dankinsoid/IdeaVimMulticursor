@@ -1,9 +1,12 @@
-![Icon](src/main/resources/META-INF/pluginIcon.svg?raw=true)
-# IdeaVimMulticursor
+<img src="src/main/resources/META-INF/pluginIcon.svg" width="80" height="80" alt="icon" align="left"/>
 
+IdeaVimMulticursor
+===
+<!-- 
 ![Build](https://github.com/dankinsoid/IdeaVimMulticursor/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+ -->
 
 <!-- Plugin description -->
 This plugin brings multiple cursors and selections to `IdeaVim`
