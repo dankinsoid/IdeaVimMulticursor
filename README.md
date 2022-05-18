@@ -9,7 +9,7 @@ IdeaVimMulticursor
 <!-- Plugin description -->
 This plugin brings multiple cursors and selections to `IdeaVim`
 
-![Preview](https://github.com/dankinsoid/IdeaVimMulticursor/preview.gif?raw=true)
+![Preview](https://github.com/dankinsoid/IdeaVimMulticursor/blob/main/preview.gif?raw=true)
 
 ## Usage
 
