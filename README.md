@@ -1,4 +1,4 @@
-<img src="src/main/resources/META-INF/pluginIcon.svg" width="80" height="80" alt="icon" align="left"/>
+<img src="src/main/resources/pluginIcon.svg" width="80" height="80" alt="icon" align="left"/>
 
 IdeaVimMulticursor
 ===
