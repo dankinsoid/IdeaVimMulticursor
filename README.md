@@ -2,14 +2,14 @@
 
 IdeaVimMulticursor
 ===
-<!-- 
 ![Build](https://github.com/dankinsoid/IdeaVimMulticursor/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
- -->
+[![Version](https://img.shields.io/jetbrains/plugin/v/19162-ideavimmulticursor.svg)](https://plusins.jetbrains.com/plugin/19162-ideavimmulticursor)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/19162-ideavimmulticursor.svg)](https://plugins.jetbrains.com/plugin/19162-ideavimmulticursor)
 
 <!-- Plugin description -->
 This plugin brings multiple cursors and selections to `IdeaVim`
+
+![Preview](preview.gif?raw=true)
 
 ## Usage
 
@@ -23,11 +23,9 @@ This plugin brings multiple cursors and selections to `IdeaVim`
 - Type `mci` (<ins>m</ins>ulti<ins>c</ins>ursor <ins>i</ins>nsert) to insert real carets instead of virtual
 - Type `mcd` (<ins>m</ins>ulti<ins>c</ins>ursor <ins>d</ins>elete) to remove all virtual carets
 
-### Example:
-type `ms/print` to select all `print`s in selected text
-<!-- Plugin description end -->
+Example:
 
-![Preview](preview.gif?raw=true)
+type `ms/print` to select all `print`s in selected text
 
 ## Setup
 
@@ -43,6 +41,7 @@ map z <Plug>(multicursor-mca)
 map Z <Plug>(multicursor-mci)
 ```
 After IdeaVim reboot you can use this plugin
+<!-- Plugin description end -->
 
 ## License
 
