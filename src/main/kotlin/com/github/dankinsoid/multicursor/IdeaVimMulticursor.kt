@@ -5,10 +5,10 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.colors.EditorColors
 import com.intellij.openapi.editor.markup.*
 import com.intellij.openapi.util.Disposer
-import com.maddyhome.idea.vim.VimProjectService
 import com.maddyhome.idea.vim.extension.VimExtension
 import com.maddyhome.idea.vim.extension.VimExtensionFacade
 import com.maddyhome.idea.vim.extension.VimExtensionHandler
+import com.maddyhome.idea.vim.newapi.vim
 import com.maddyhome.idea.vim.ui.ModalEntry
 import com.maddyhome.idea.vim.ui.ex.ExEntryPanel
 import java.awt.Font
@@ -46,7 +46,7 @@ class IdeaVimMulticursor : VimExtension {
 		override fun execute(editor: Editor, context: DataContext) {
 			val panel = ExEntryPanel.getInstanceWithoutShortcuts()
 			panel.activate(editor, context, " ", "", 1)
-			ModalEntry.activate { key: KeyStroke ->
+			ModalEntry.activate(editor.vim) { key: KeyStroke ->
 				return@activate when (key.keyCode) {
 					KeyEvent.VK_ESCAPE -> {
 						panel.deactivate(true)
@@ -152,7 +152,7 @@ class IdeaVimMulticursor : VimExtension {
 
 			val project = editor.project
 			if (project != null) {
-				Disposer.register(VimProjectService.getInstance(project)) {
+				Disposer.register(ProjectService.getInstance(project)) {
 					sneakHighlighters.clear()
 				}
 			}
