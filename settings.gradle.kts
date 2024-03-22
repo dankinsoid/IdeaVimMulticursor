@@ -1,3 +1,3 @@
-rootProject.name = "IdeaVimMulticursor"
+rootProject.name = "VimMulticursor"
 
 include("IdeaVIM")

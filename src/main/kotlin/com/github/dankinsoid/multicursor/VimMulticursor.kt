@@ -15,7 +15,7 @@ import java.awt.Font
 import java.awt.event.KeyEvent
 import javax.swing.KeyStroke
 
-class IdeaVimMulticursor : VimExtension {
+class VimMulticursor : VimExtension {
 	override fun getName(): String = "multicursor"
 
 	override fun init() {

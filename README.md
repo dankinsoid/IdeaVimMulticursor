@@ -1,15 +1,15 @@
 <img src="src/main/resources/pluginIcon.svg" width="80" height="80" alt="icon" align="left"/>
 
-IdeaVimMulticursor
+VimMulticursor
 ===
-![Build](https://github.com/dankinsoid/IdeaVimMulticursor/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/19162-ideavimmulticursor.svg)](https://plusins.jetbrains.com/plugin/19162-ideavimmulticursor)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/19162-ideavimmulticursor.svg)](https://plugins.jetbrains.com/plugin/19162-ideavimmulticursor)
+![Build](https://github.com/dankinsoid/VimMulticursor/workflows/Build/badge.svg)
+[![Version](https://img.shields.io/jetbrains/plugin/v/19162-VimMulticursor.svg)](https://plusins.jetbrains.com/plugin/19162-VimMulticursor)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/19162-VimMulticursor.svg)](https://plugins.jetbrains.com/plugin/19162-VimMulticursor)
 
 <!-- Plugin description -->
 This plugin brings multiple cursors and selections to `IdeaVim`
 
-![Preview](https://github.com/dankinsoid/IdeaVimMulticursor/blob/main/preview.gif?raw=true)
+![Preview](https://github.com/dankinsoid/VimMulticursor/blob/main/preview.gif?raw=true)
 
 ## Usage
 
@@ -54,12 +54,12 @@ Plugin icon is merged icons of IdeaVim plugin and a random sneaker by FreePic fr
 
 - Using IDE built-in plugin system:
   
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "IdeaVimMulticursor"</kbd> >
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "VimMulticursor"</kbd> >
   <kbd>Install Plugin</kbd>
   
 - Manually:
 
-  Download the [latest release](https://github.com/dankinsoid/IdeaVimMulticursor/releases/latest) and install it manually using
+  Download the [latest release](https://github.com/dankinsoid/VimMulticursor/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 
