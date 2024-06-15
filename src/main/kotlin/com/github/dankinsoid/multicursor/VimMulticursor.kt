@@ -6,7 +6,6 @@ import com.intellij.openapi.editor.colors.EditorColors
 import com.intellij.openapi.editor.markup.*
 import com.intellij.openapi.util.Disposer
 import com.maddyhome.idea.vim.api.injector
-import com.maddyhome.idea.vim.ui.ex.ExEntryPanel
 import com.maddyhome.idea.vim.extension.VimExtension
 import com.maddyhome.idea.vim.extension.VimExtensionFacade
 import com.maddyhome.idea.vim.extension.VimExtensionHandler
@@ -46,24 +45,24 @@ class VimMulticursor : VimExtension {
 		private val select: Boolean = false
 	) : VimExtensionHandler {
 		override fun execute(editor: Editor, context: DataContext) {
-			val exEntryPanel = ExEntryPanel.getInstanceWithoutShortcuts()
-			exEntryPanel.activate(editor, context, " ", "", 1)
+			val panel = injector.commandLine.createWithoutShortcuts(editor.vim, context.vim, " ", "")
 			ModalEntry.activate(editor.vim) { key: KeyStroke ->
-				return@activate when {
-					key.keyCode == KeyEvent.VK_ESCAPE -> {
-						exEntryPanel.deactivate(true)
+				return@activate when (key.keyCode) {
+					KeyEvent.VK_ESCAPE -> {
+						panel.deactivate(refocusOwningEditor = true, resetCaret = true)
 						highlightHandler.clearAllMulticursorHighlighters(editor)
 						false
 					}
 					key.keyCode == KeyEvent.VK_ENTER -> {
 						exEntryPanel.deactivate(true)
 						highlightHandler.clearAllMulticursorHighlighters(editor)
-						select(editor, exEntryPanel.text, select)
+						panel.deactivate(refocusOwningEditor = false, resetCaret = true)
+						select(editor, panel.actualText, select)
 						false
 					}
 					else -> {
-						exEntryPanel.handleKey(key)
-						highlightHandler.highlightMulticursorRange(editor, ranges(exEntryPanel.text, editor))
+						panel.handleKey(key)
+						highlightHandler.highlightMulticursorRange(editor, ranges(panel.actualText, editor))
 						true
 					}
 				}
