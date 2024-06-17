@@ -6,10 +6,12 @@ import com.intellij.openapi.editor.colors.EditorColors
 import com.intellij.openapi.editor.markup.*
 import com.intellij.openapi.util.Disposer
 import com.maddyhome.idea.vim.api.injector
+import com.maddyhome.idea.vim.ui.ex.ExEntryPanel
 import com.maddyhome.idea.vim.extension.VimExtension
 import com.maddyhome.idea.vim.extension.VimExtensionFacade
 import com.maddyhome.idea.vim.extension.VimExtensionHandler
 import com.maddyhome.idea.vim.newapi.vim
+import com.maddyhome.idea.vim.state.VimStateMachine
 import com.maddyhome.idea.vim.ui.ModalEntry
 import java.awt.Font
 import java.awt.event.KeyEvent
@@ -44,23 +46,24 @@ class VimMulticursor : VimExtension {
 		private val select: Boolean = false
 	) : VimExtensionHandler {
 		override fun execute(editor: Editor, context: DataContext) {
-			val panel = injector.commandLine.createWithoutShortcuts(editor.vim, context.vim, " ", "")
+			val exEntryPanel = ExEntryPanel.getInstanceWithoutShortcuts()
+			exEntryPanel.activate(editor, context, " ", "", 1)
 			ModalEntry.activate(editor.vim) { key: KeyStroke ->
-				return@activate when (key.keyCode) {
-					KeyEvent.VK_ESCAPE -> {
-						panel.deactivate(refocusOwningEditor = true, resetCaret = true)
+				return@activate when {
+					key.keyCode == KeyEvent.VK_ESCAPE -> {
+						exEntryPanel.deactivate(true)
 						highlightHandler.clearAllMulticursorHighlighters(editor)
 						false
 					}
-					KeyEvent.VK_ENTER -> {
+					key.keyCode == KeyEvent.VK_ENTER -> {
+						exEntryPanel.deactivate(true)
 						highlightHandler.clearAllMulticursorHighlighters(editor)
-						panel.deactivate(refocusOwningEditor = false, resetCaret = true)
-						select(editor, panel.actualText, select)
+						select(editor, exEntryPanel.text, select)
 						false
 					}
 					else -> {
-						panel.handleKey(key)
-						highlightHandler.highlightMulticursorRange(editor, ranges(panel.actualText, editor))
+						exEntryPanel.handleKey(key)
+						highlightHandler.highlightMulticursorRange(editor, ranges(exEntryPanel.text, editor))
 						true
 					}
 				}
