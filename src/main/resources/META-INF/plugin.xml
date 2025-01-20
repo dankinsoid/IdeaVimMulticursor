@@ -8,6 +8,8 @@
 
     <depends>com.intellij.modules.platform</depends>
     <depends>IdeaVIM</depends>
+
+    <description><![CDATA[
         A powerful extension for IdeaVim that adds multiple cursors and selections through Vim commands.
         Use `mc` prefix to create multiple cursors or `ms` prefix to create multiple selections,
         followed by any supported Vim command. All commands work within selected text if there's
@@ -31,6 +33,7 @@
           - mcd: Clear all cursors
 
         Full guide: https://github.com/dankinsoid/VimMulticursor
+    ]]></description>
     </description>
 
     <extensions defaultExtensionNs="IdeaVIM">
