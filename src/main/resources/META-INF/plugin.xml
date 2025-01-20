@@ -8,23 +8,21 @@
 
     <depends>com.intellij.modules.platform</depends>
     <depends>IdeaVIM</depends>
-
         A powerful extension for IdeaVim that adds multiple cursors and selections through Vim commands.
         Use 'mc' prefix to create multiple cursors or 'ms' prefix to create multiple selections,
-        followed by any supported Vim command.
+        followed by any supported Vim command. 
 
         Supported Commands:
+        • Navigation
+          - Word: w/W (next word), b/B (prev word), e/E (word end)
+          - Character: f/F (find char), t/T (till char)
+          - Pattern: / (regex search)
 
         • Text Objects
           - Word: aw (around word), iw (inside word)
           - Brackets: ab/ib (), aB/iB {}
           - Quotes: a'/i' '', a"/i" "", a`/i` ``
           - Any bracket/quote: aa/ia (smart matching)
-
-        • Navigation
-          - Word: w/W (next word), b/B (prev word), e/E (word end)
-          - Character: f/F (find char), t/T (till char)
-          - Pattern: / (regex search)
 
         • Cursor Management
           - mcc: Add/remove cursor at position
@@ -39,12 +37,8 @@
           - Works in selected regions
           - Preserves cursor positions
 
-        Setup:
-        1. Add 'set multicursor' to ~/.ideavimrc
-        2. Optional mappings in documentation
-
         Full guide: https://github.com/dankinsoid/VimMulticursor
-    ]]></description>
+    </description>
 
     <extensions defaultExtensionNs="IdeaVIM">
         <vimExtension implementation="com.github.dankinsoid.multicursor.VimMulticursor"/>
