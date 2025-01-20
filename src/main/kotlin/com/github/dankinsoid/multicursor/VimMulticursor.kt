@@ -65,6 +65,31 @@ class VimMulticursor : VimExtension {
 		mapToFunctionAndProvideKeys("c", "mc", MulticursorAddHandler(highlightHandler))
 		mapToFunctionAndProvideKeys("r", "mc", MulticursorApplyHandler(highlightHandler))
 		mapToFunctionAndProvideKeys("d", "mc", MulticursorRemoveHandler(highlightHandler))
+		mapToFunctionAndProvideKeys("aw", "mc", MulticursorAroundWordHandler())
+	}
+
+	private class MulticursorAroundWordHandler : VimExtensionHandler {
+		override fun execute(editor: Editor, context: DataContext) {
+			val offset = editor.caretModel.primaryCaret.offset
+			val text = editor.document.charsSequence
+			
+			// Find word boundaries
+			var start = offset
+			var end = offset
+			
+			// Find start of word
+			while (start > 0 && text[start - 1].isLetterOrDigit()) {
+				start--
+			}
+			
+			// Find end of word
+			while (end < text.length && text[end].isLetterOrDigit()) {
+				end++
+			}
+			
+			// Add carets at word boundaries
+			editor.setCarets(sequenceOf(IntRange(start, start), IntRange(end, end)), false)
+		}
 	}
 
 	private class MultiselectSearchHandler(

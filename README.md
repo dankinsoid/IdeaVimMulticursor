@@ -59,6 +59,7 @@ This plugin brings multiple cursors and selections to `IdeaVim`
 - `mcd`: Delete all virtual cursors
 - `mcia`: Inside any brackets/quotes ((), [], {}, "", '')
 - `mcaa`: Around any brackets/quotes
+- `mcaw`: Add cursors at word boundaries (start and end of current word)
 
 ## Examples
 
