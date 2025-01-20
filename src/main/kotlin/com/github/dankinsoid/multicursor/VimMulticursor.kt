@@ -184,14 +184,14 @@ class VimMulticursor : VimExtension {
 			var pos = fromOffset
 			while (pos >= 0) {
 				when {
-					text.matchesAt(pos, end) -> {
+					text.matchesAt(pos - end.length + 1, end) -> {
 						nesting++
-						pos--
+						pos -= end.length
 					}
-					text.matchesAt(pos, start) -> {
-						if (nesting == 0) return pos
+					text.matchesAt(pos - start.length + 1, start) -> {
+						if (nesting == 0) return pos - start.length + 1
 						nesting--
-						pos--
+						pos -= start.length
 					}
 					else -> pos--
 				}
