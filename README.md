@@ -54,9 +54,9 @@ This plugin brings multiple cursors and selections to `IdeaVim`
 - `E`: Next WORD end
 
 ### Cursor Management
-- `mcc`: Add/remove a virtual cursor at current position
-- `mcr`: Convert virtual cursors to real cursors (for editing)
-- `mcd`: Delete all virtual cursors
+- `mcc`: Add/remove a cursor highlight at current position (preview mode)
+- `mcr`: Convert cursor highlights into active editing cursors
+- `mcd`: Remove all cursors and highlights
 - `mcia`: Inside any brackets/quotes ((), [], {}, "", '', ``)
 - `mcaa`: Around any brackets/quotes
 - `mcaw`: Add cursors at word boundaries (start and end of current word)
@@ -77,9 +77,9 @@ The `mcia` and `mcaa` commands intelligently find the closest matching pair of d
 
 3. Add cursors at specific positions:
    1. Move cursor to desired position
-   2. Type `mca` to add cursor
+   2. Type `mcc` to add a cursor highlight
    3. Repeat for more positions
-   4. Type `mci` to convert to real cursors
+   4. Type `mcr` to convert highlights into editing cursors
 
 ## Optional Key Mappings
 

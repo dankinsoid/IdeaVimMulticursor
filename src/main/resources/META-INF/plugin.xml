@@ -28,9 +28,9 @@
           - Any bracket: mcaa/mcia (smart matching)
 
         • Cursor Management
-          - mcc: Add/remove cursor at position
-          - mcr: Convert virtual cursors to real
-          - mcd: Clear all cursors
+          - mcc: Add/remove a cursor highlight at current position
+          - mcr: Convert cursor highlights to active editing cursors
+          - mcd: Clear all cursors and highlights
 
         Full guide: https://github.com/dankinsoid/VimMulticursor
     ]]></description>
