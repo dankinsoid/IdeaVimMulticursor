@@ -10,10 +10,10 @@
     <depends>IdeaVIM</depends>
 
     <description><![CDATA[
-        A powerful IdeaVim extension that enables multiple cursors and selections using Vim commands.
-        Use the `mc` prefix for multiple cursors or `ms` prefix for multiple selections,
-        followed by any supported Vim command. When text is selected, all commands operate
-        within the selection.
+        A powerful IdeaVim extension that brings multiple cursor and selection capabilities through Vim commands.
+        Use the `mc` prefix to create multiple cursors or `ms` prefix to create selections,
+        followed by any supported Vim command. All commands will operate within the current
+        selection if text is selected.
 
         Supported Commands:
         • Navigation

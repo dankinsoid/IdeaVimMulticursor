@@ -17,7 +17,7 @@ This plugin adds multiple cursor and selection capabilities to `IdeaVim`
    - Open IntelliJ IDEA
    - Go to Settings/Preferences → Plugins → Marketplace
    - Search for "VimMulticursor"
-   - Click Install and restart IDE
+   - Click Install and restart your IDE
 
 2. Enable the plugin:
    - Add the following line to the top of your `~/.ideavimrc` file:
@@ -54,12 +54,12 @@ This plugin adds multiple cursor and selection capabilities to `IdeaVim`
 - `E`: Next WORD end
 
 ### Cursor Management
-- `mcc`: Add/remove a cursor highlight at current position (preview mode)
-- `mcr`: Convert cursor highlights into active editing cursors
+- `mcc`: Add or remove a cursor highlight at the current position (preview mode)
+- `mcr`: Convert cursor highlights to active editing cursors
 - `mcd`: Remove all cursors and highlights
-- `mcia`: Inside any brackets/quotes ((), [], {}, "", '', ``)
-- `mcaa`: Around any brackets/quotes
-- `mcaw`: Add cursors at word boundaries (start and end of current word)
+- `mcia`: Place cursors inside any brackets or quotes ((), [], {}, "", '', ``)
+- `mcaa`: Place cursors around any brackets or quotes
+- `mcaw`: Add cursors at word boundaries (at the start and end of current word)
 
 The `mcia` and `mcaa` commands automatically find the nearest matching pair of delimiters around the cursor, handling proper nesting and matching of brackets/quotes.
 
@@ -105,9 +105,9 @@ map <leader>b <Plug>(multicursor-msb)
    - Check if IdeaVim plugin is enabled
 
 2. Cursors not appearing?
-   - Make sure you're in normal mode
-   - Try clearing cursors with `mcd`
-   - Restart IDE if issues persist
+   - Ensure you are in normal mode
+   - Try clearing all cursors with `mcd`
+   - If issues persist, restart your IDE
 <!-- Plugin description end -->
 
 ## License
