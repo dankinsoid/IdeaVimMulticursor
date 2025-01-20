@@ -34,24 +34,14 @@ This plugin adds multiple cursor and selection capabilities to `IdeaVim`
 - All commands work within selected text when there's an active selection
 
 ### Available Commands
-- `/regex-pattern`: Search for regex pattern
-- `f{char}`: Find character forward
-- Text Objects:
-  - `aw`: Around word (includes trailing space)
-  - `iw`: Inside word
-  - `ab`: Around brackets ()
-  - `ib`: Inside brackets ()
-  - `aB`: Around braces {}
-  - `iB`: Inside braces {}
-- `F{char}`: Find character backward
-- `t{char}`: Till before character forward
-- `T{char}`: Till before character backward
-- `w`: Next word start
-- `W`: Next WORD start
-- `b`: Previous word start
-- `B`: Previous WORD start
-- `e`: Next word end
-- `E`: Next WORD end
+- `mc/` + search: Add cursors at all occurrences of search regex.
+- `mcf`x, `mcF`x: Add cursors at all occurrences of character x.
+- `mcw`, `mcW`, `mcb`, `mcB`: Add cursors at words start.
+- `mce`, `mcE`: Add cursors at words end.
+- `mcaw`: Around word
+- `mca` + bracket: Around bracket, like `mca(`/`mcab`, `mca{`/`mcaB`, `mca"`, etc
+- `mci` + bracket: Inside bracket, like `mci(`/`mcib`, `mci{`/`mciB`, `mci"`, etc 
+- `mcaa`/`mcia`: any bracket
 
 ### Cursor Management
 - `mcc`: Add or remove a cursor highlight at the current position (preview mode)
