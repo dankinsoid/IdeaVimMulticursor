@@ -1,5 +1,6 @@
 package com.github.dankinsoid.multicursor
 
+import com.maddyhome.idea.vim.VimPlugin
 import com.maddyhome.idea.vim.api.injector
 import com.maddyhome.idea.vim.command.MappingMode
 import com.maddyhome.idea.vim.extension.VimExtension
@@ -16,7 +17,7 @@ fun VimExtension.mapToFunctionAndProvideKeys(keys: String, handler: (Boolean) ->
 }
 
 fun VimExtension.mapToFunctionAndProvideKeys(keys: String, prefix: String, handler: VimExtensionHandler) {
-    VimExtensionFacade.putExtensionHandlerMapping(
+    VimPlugin.getKey().putKeyMapping(
         MappingMode.NVO,
         injector.parser.parseKeys(command(prefix, keys)),
         owner,
