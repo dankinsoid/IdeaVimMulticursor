@@ -17,9 +17,11 @@
 
         Supported Commands:
         • Navigation
-          - Word: w/W (next words), b/B (prev words), e/E (words ends)
-          - Character: f/F (find chars), t/T (till chars)
-          - Pattern: / (regex search)
+          - mcw/mcW: Add cursors at next words start.
+          - mcb/mcB: Add cursors at previous words start.
+          - mce/mcE: Add cursors at words end.
+          - mcfx/mcFx: Add cursors at all occurrences of character x.
+          - mc/ + search: Add cursors at all occurrences of search regex.
 
         • Around text objects with cursors
           - mcaw: Around word
