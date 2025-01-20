@@ -10,7 +10,7 @@
     <depends>IdeaVIM</depends>
 
     <description><![CDATA[
-        A powerful extension for IdeaVim that brings Sublime/VSCode-style multiple cursors and selections to your IDE.
+        A powerful extension for IdeaVim that brings multiple cursors and selections by Vim commands.
 
         Key Features:
         • Multiple Cursors (mc prefix)
