@@ -37,12 +37,20 @@ class VimMulticursor : VimExtension {
 		mapToFunctionAndProvideKeys("gE") { MultiselectHandler("[^\\s](?=\\s|\\Z)", it) }
 
 		// Text object commands with explicit prefixes
-		mapToFunctionAndProvideKeys("aw") { MultiselectTextObjectHandler("\\w+\\s*", it) }
-		mapToFunctionAndProvideKeys("iw") { MultiselectTextObjectHandler("\\w+", it) }
-		mapToFunctionAndProvideKeys("ab") { MultiselectTextObjectHandler("\\([^()]*\\)", it) }
-		mapToFunctionAndProvideKeys("ib") { MultiselectTextObjectHandler("(?<=\\().*?(?=\\))", it) }
-		mapToFunctionAndProvideKeys("aB") { MultiselectTextObjectHandler("\\{[^{}]*\\}", it) }
-		mapToFunctionAndProvideKeys("iB") { MultiselectTextObjectHandler("(?<=\\{).*?(?=\\})", it) }
+		mapToFunctionAndProvideKeys("ab") { MultiselectTextObjectHandler("(", ")", it) }
+		mapToFunctionAndProvideKeys("aB") { MultiselectTextObjectHandler("{", "}", it) }
+		mapToFunctionAndProvideKeys("a[") { MultiselectTextObjectHandler("[", "]", it) }
+		mapToFunctionAndProvideKeys("a\"") { MultiselectTextObjectHandler("\"", "\"", it) }
+		mapToFunctionAndProvideKeys("a'") { MultiselectTextObjectHandler("'", "'", it) }
+		mapToFunctionAndProvideKeys("a`") { MultiselectTextObjectHandler("`", "`", it) }
+		
+		// Inside versions
+		mapToFunctionAndProvideKeys("ib") { MultiselectTextObjectHandler("(", ")", it) }
+		mapToFunctionAndProvideKeys("iB") { MultiselectTextObjectHandler("{", "}", it) }
+		mapToFunctionAndProvideKeys("i[") { MultiselectTextObjectHandler("[", "]", it) }
+		mapToFunctionAndProvideKeys("i\"") { MultiselectTextObjectHandler("\"", "\"", it) }
+		mapToFunctionAndProvideKeys("i'") { MultiselectTextObjectHandler("'", "'", it) }
+		mapToFunctionAndProvideKeys("i`") { MultiselectTextObjectHandler("`", "`", it) }
 
 		mapToFunctionAndProvideKeys("c", "mc", MulticursorAddHandler(highlightHandler))
 		mapToFunctionAndProvideKeys("r", "mc", MulticursorApplyHandler(highlightHandler))
@@ -85,24 +93,90 @@ class VimMulticursor : VimExtension {
 		}
 	}
 
-	private class MultiselectTextObjectHandler(private val regex: String, private val select: Boolean = false): VimExtensionHandler {
+	private class MultiselectTextObjectHandler(
+		private val startDelimiter: String,
+		private val endDelimiter: String,
+		private val select: Boolean = false
+	): VimExtensionHandler {
 		override fun execute(editor: Editor, context: DataContext) {
 			val offset = editor.caretModel.primaryCaret.offset
 			val text = editor.document.charsSequence
-			val matches = regex.toRegex().findAll(text).toList()
-			val range = matches.minByOrNull { match ->
-				if (match.range.contains(offset)) {
-					0
-				} else {
-					val distanceToStart = (match.range.first - offset).absoluteValue
-					val distanceToEnd = (match.range.last - offset).absoluteValue
-					minOf(distanceToStart, distanceToEnd)
-				}
-			}?.range
-			
+			val range = findPairedRange(text, offset, startDelimiter, endDelimiter)
 			if (range != null) {
 				editor.setCarets(sequenceOf(range), select)
 			}
+		}
+
+		private fun findPairedRange(text: CharSequence, offset: Int, start: String, end: String): IntRange? {
+			// First find the closest end delimiter going forward
+			var endPos = findClosingPosition(text, offset, start, end) ?: return null
+			// Then find the matching start delimiter going backward
+			var startPos = findOpeningPosition(text, endPos, start, end) ?: return null
+			
+			// If cursor was inside a pair, also check if there's a closer pair
+			if (offset > startPos && offset < endPos) {
+				val closerEndPos = findClosingPosition(text, startPos, start, end, offset)
+				if (closerEndPos != null && closerEndPos < endPos) {
+					endPos = closerEndPos
+					startPos = findOpeningPosition(text, endPos, start, end) ?: return null
+				}
+			}
+			
+			return IntRange(startPos, endPos + end.length - 1)
+		}
+
+		private fun findClosingPosition(
+			text: CharSequence,
+			fromOffset: Int,
+			start: String,
+			end: String,
+			maxOffset: Int = text.length
+		): Int? {
+			var nesting = 0
+			var pos = fromOffset
+			while (pos < maxOffset) {
+				when {
+					text.matchesAt(pos, start) -> {
+						nesting++
+						pos += start.length
+					}
+					text.matchesAt(pos, end) -> {
+						if (nesting == 0) return pos
+						nesting--
+						pos += end.length
+					}
+					else -> pos++
+				}
+			}
+			return null
+		}
+
+		private fun findOpeningPosition(text: CharSequence, fromOffset: Int, start: String, end: String): Int? {
+			var nesting = 0
+			var pos = fromOffset
+			while (pos >= 0) {
+				when {
+					text.matchesAt(pos, end) -> {
+						nesting++
+						pos--
+					}
+					text.matchesAt(pos, start) -> {
+						if (nesting == 0) return pos
+						nesting--
+						pos--
+					}
+					else -> pos--
+				}
+			}
+			return null
+		}
+
+		private fun CharSequence.matchesAt(index: Int, str: String): Boolean {
+			if (index + str.length > length) return false
+			for (i in str.indices) {
+				if (this[index + i] != str[i]) return false
+			}
+			return true
 		}
 	}
 
