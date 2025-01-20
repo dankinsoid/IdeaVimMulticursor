@@ -206,7 +206,33 @@ class VimMulticursor : VimExtension {
 	private class MultiselectFHandler(private val offset: Int = 0, private val select: Boolean = false): VimExtensionHandler {
 		override fun execute(editor: Editor, context: DataContext) {
 			val char = getChar(editor) ?: return
-			select(editor, "\\$char", select, offset)
+			val caretOffset = editor.caretModel.primaryCaret.offset
+			val text = editor.document.charsSequence
+			val ranges = mutableListOf<IntRange>()
+			
+			// Search forward from caret
+			var pos = caretOffset
+			while (pos < text.length) {
+				if (text[pos] == char) {
+					val rangeStart = pos + offset
+					ranges.add(IntRange(rangeStart, rangeStart))
+				}
+				pos++
+			}
+			
+			// Search backward from caret
+			pos = caretOffset - 1
+			while (pos >= 0) {
+				if (text[pos] == char) {
+					val rangeStart = pos + offset
+					ranges.add(IntRange(rangeStart, rangeStart))
+				}
+				pos--
+			}
+			
+			if (ranges.isNotEmpty()) {
+				editor.setCarets(ranges.asSequence(), select)
+			}
 		}
 
 		private fun getChar(editor: Editor): Char? {
