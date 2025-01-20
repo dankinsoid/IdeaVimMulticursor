@@ -118,8 +118,10 @@ class VimMulticursor : VimExtension {
 
 			// Search forward from cursor
 			val forwardEnd = findClosingPosition(text, offset, start, end)
+			println(forwardEnd)
 			if (forwardEnd != null) {
 				val forwardStart = findOpeningPosition(text, forwardEnd, start, end)
+				println(forwardStart)
 				if (forwardStart != null) {
 					val distance = (forwardEnd - offset).absoluteValue
 					if (distance < bestDistance) {
