@@ -36,22 +36,22 @@ class VimMulticursor : VimExtension {
 		mapToFunctionAndProvideKeys("gE") { MultiselectHandler("[^\\s](?=\\s|\\Z)", it) }
 
 		// Text object commands with explicit prefixes
-		mapToFunctionAndProvideKeys("aw", "ms") { MultiselectTextObjectHandler("\\w+\\s*", it) }
-		mapToFunctionAndProvideKeys("iw", "ms") { MultiselectTextObjectHandler("\\w+", it) }
-		mapToFunctionAndProvideKeys("ab", "ms") { MultiselectTextObjectHandler("\\([^()]*\\)", it) }
-		mapToFunctionAndProvideKeys("ib", "ms") { MultiselectTextObjectHandler("(?<=\\().*?(?=\\))", it) }
-		mapToFunctionAndProvideKeys("aB", "ms") { MultiselectTextObjectHandler("\\{[^{}]*\\}", it) }
-		mapToFunctionAndProvideKeys("iB", "ms") { MultiselectTextObjectHandler("(?<=\\{).*?(?=\\})", it) }
+		mapToFunctionAndProvideKeys("aw") { MultiselectTextObjectHandler("\\w+\\s*", it) }
+		mapToFunctionAndProvideKeys("iw") { MultiselectTextObjectHandler("\\w+", it) }
+		mapToFunctionAndProvideKeys("ab") { MultiselectTextObjectHandler("\\([^()]*\\)", it) }
+		mapToFunctionAndProvideKeys("ib") { MultiselectTextObjectHandler("(?<=\\().*?(?=\\))", it) }
+		mapToFunctionAndProvideKeys("aB") { MultiselectTextObjectHandler("\\{[^{}]*\\}", it) }
+		mapToFunctionAndProvideKeys("iB") { MultiselectTextObjectHandler("(?<=\\{).*?(?=\\})", it) }
 
-		mapToFunctionAndProvideKeys("aw", "mc") { MultiselectTextObjectHandler("\\w+\\s*", it) }
-		mapToFunctionAndProvideKeys("iw", "mc") { MultiselectTextObjectHandler("\\w+", it) }
-		mapToFunctionAndProvideKeys("ab", "mc") { MultiselectTextObjectHandler("\\([^()]*\\)", it) }
-		mapToFunctionAndProvideKeys("ib", "mc") { MultiselectTextObjectHandler("(?<=\\().*?(?=\\))", it) }
-		mapToFunctionAndProvideKeys("aB", "mc") { MultiselectTextObjectHandler("\\{[^{}]*\\}", it) }
-		mapToFunctionAndProvideKeys("iB", "mc") { MultiselectTextObjectHandler("(?<=\\{).*?(?=\\})", it) }
+		mapToFunctionAndProvideKeys("aw") { MultiselectTextObjectHandler("\\w+\\s*", it) }
+		mapToFunctionAndProvideKeys("iw") { MultiselectTextObjectHandler("\\w+", it) }
+		mapToFunctionAndProvideKeys("ab") { MultiselectTextObjectHandler("\\([^()]*\\)", it) }
+		mapToFunctionAndProvideKeys("ib") { MultiselectTextObjectHandler("(?<=\\().*?(?=\\))", it) }
+		mapToFunctionAndProvideKeys("aB") { MultiselectTextObjectHandler("\\{[^{}]*\\}", it) }
+		mapToFunctionAndProvideKeys("iB") { MultiselectTextObjectHandler("(?<=\\{).*?(?=\\})", it) }
 
-		mapToFunctionAndProvideKeys("a ", "mc", MulticursorAddHandler(highlightHandler))
-		mapToFunctionAndProvideKeys("i", "mc", MulticursorApplyHandler(highlightHandler))
+		mapToFunctionAndProvideKeys("c", "mc", MulticursorAddHandler(highlightHandler))
+		mapToFunctionAndProvideKeys("r", "mc", MulticursorApplyHandler(highlightHandler))
 		mapToFunctionAndProvideKeys("d", "mc", MulticursorRemoveHandler(highlightHandler))
 	}
 
