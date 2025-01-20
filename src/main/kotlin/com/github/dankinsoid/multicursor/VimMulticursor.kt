@@ -15,6 +15,7 @@ import com.maddyhome.idea.vim.ui.ModalEntry
 import java.awt.Font
 import java.awt.event.KeyEvent
 import javax.swing.KeyStroke
+import kotlin.math.absoluteValue
 
 class VimMulticursor : VimExtension {
 	override fun getName(): String = "multicursor"
