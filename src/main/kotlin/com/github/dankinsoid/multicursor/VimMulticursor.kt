@@ -104,7 +104,6 @@ class VimMulticursor : VimExtension {
 			val offset = editor.caretModel.primaryCaret.offset
 			val text = editor.document.charsSequence
 			val range = findPairedRange(text, offset, startDelimiter, endDelimiter)
-			println(range)
 			if (range != null) {
 				editor.setCarets(sequenceOf(range), select)
 			}
@@ -113,22 +112,14 @@ class VimMulticursor : VimExtension {
 		private fun findPairedRange(text: CharSequence, offset: Int, start: String, end: String): IntRange? {
 			// First try searching forward from cursor
 			val forwardEnd = findClosingPosition(text, offset, start, end)
+		println(forwardEnd)
 			if (forwardEnd != null) {
 				val forwardStart = findOpeningPosition(text, forwardEnd, start, end)
+			println(forwardStart)
 				if (forwardStart != null) {
 					return IntRange(forwardStart, forwardEnd + end.length - 1)
 				}
 			}
-
-			// If no match found forward, try searching backward
-			val backwardStart = findOpeningPosition(text, offset, start, end)
-			if (backwardStart != null) {
-				val backwardEnd = findClosingPosition(text, backwardStart, start, end)
-				if (backwardEnd != null) {
-					return IntRange(backwardStart, backwardEnd + end.length - 1)
-				}
-			}
-
 			return null
 		}
 
