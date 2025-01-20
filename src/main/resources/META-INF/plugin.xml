@@ -10,18 +10,44 @@
     <depends>IdeaVIM</depends>
 
     <description><![CDATA[
-        This plugin brings multiple cursors and selections to IdeaVim.
+        A powerful extension for IdeaVim that brings Sublime/VSCode-style multiple cursors and selections to your IDE.
 
-        Features:
-        - Create multiple cursors with 'mc' command prefix
-        - Create multiple selections with 'ms' command prefix
-        - Supports surrounding text objects (word, brackets, quotes)
-        - Search-based multiple selection with regex patterns
-        - Character-based navigation (f, F, t, T)
-        - Word navigation (w, W, b, B, e, E)
-        - Intelligent bracket/quote matching
+        Key Features:
+        • Multiple Cursors (mc prefix)
+          - Add/remove cursors at specific positions (mcc)
+          - Convert virtual cursors to real ones (mcr)
+          - Clear all cursors (mcd)
+          - Add cursors at word boundaries (mcaw)
+          - Smart bracket/quote matching (mcia, mcaa)
 
-        See full documentation and examples at:
+        • Multiple Selections (ms prefix)
+          - Select by regex pattern (ms/)
+          - Text object selections (msib, msiB, etc.)
+          - Word-based selections (msw, msb)
+          - Character navigation (msf, msF, mst, msT)
+
+        • Text Objects Support
+          - Words: aw (around word), iw (inside word)
+          - Brackets: ab/ib (), aB/iB {}
+          - Quotes: a'/i' '', a"/i" "", a`/i` ``
+          - Smart any-bracket: aa (around any), ia (inside any)
+
+        • Navigation Commands
+          - Word-based: w/W (next word), b/B (prev word), e/E (word end)
+          - Character-based: f/F (find char), t/T (till char)
+          - Pattern-based: / (regex search)
+
+        • Intelligent Features
+          - Context-aware bracket matching
+          - Nested quotes/brackets handling
+          - Works within selected text regions
+          - Preserves relative cursor positions
+
+        Configuration:
+        1. Add 'set multicursor' to ~/.ideavimrc
+        2. Optional key mappings available (see docs)
+
+        For detailed usage examples and full documentation:
         https://github.com/dankinsoid/VimMulticursor
     ]]></description>
 
