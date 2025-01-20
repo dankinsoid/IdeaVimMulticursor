@@ -59,8 +59,8 @@ class VimMulticursor : VimExtension {
 		mapToFunctionAndProvideKeys("i`") { MultiselectTextObjectHandler("`", "`", true, it) }
 
 		// Any brackets handlers
-		mapToFunctionAndProvideKeys("ia", "mc") { MultiselectAnyTextObjectHandler(true, it) }
-		mapToFunctionAndProvideKeys("aa", "mc") { MultiselectAnyTextObjectHandler(false, it) }
+		mapToFunctionAndProvideKeys("ia") { MultiselectAnyTextObjectHandler(true, it) }
+		mapToFunctionAndProvideKeys("aa") { MultiselectAnyTextObjectHandler(false, it) }
 
 		mapToFunctionAndProvideKeys("c", "mc", MulticursorAddHandler(highlightHandler))
 		mapToFunctionAndProvideKeys("r", "mc", MulticursorApplyHandler(highlightHandler))
@@ -177,75 +177,6 @@ class VimMulticursor : VimExtension {
 				editor.setCarets(sequenceOf(start, end), select)
 			}
 		}
-
-		private fun findPairedRange(text: CharSequence, offset: Int, start: String, end: String): Pair<IntRange, IntRange>? {
-			// First try searching forward from cursor
-			val forwardEnd = findClosingPosition(text, offset, start, end)
-			if (forwardEnd != null) {
-				val forwardStart = findOpeningPosition(text, forwardEnd, start, end)
-				if (forwardStart != null) {
-					return Pair(
-						IntRange(forwardStart, forwardStart + start.length - 1),
-						IntRange(forwardEnd, forwardEnd + end.length - 1)
-					)
-				}
-			}
-			return null
-		}
-
-		private fun findClosingPosition(
-			text: CharSequence,
-			fromOffset: Int,
-			start: String,
-			end: String,
-			maxOffset: Int = text.length
-		): Int? {
-			var nesting = 0
-			var pos = fromOffset
-			while (pos < maxOffset) {
-				when {
-					text.matchesAt(pos, start) -> {
-						nesting++
-						pos += start.length
-					}
-					text.matchesAt(pos, end) -> {
-						if (nesting == 0) return pos
-						nesting--
-						pos += end.length
-					}
-					else -> pos++
-				}
-			}
-			return null
-		}
-
-		private fun findOpeningPosition(text: CharSequence, fromOffset: Int, start: String, end: String): Int? {
-			var nesting = 0
-			var pos = fromOffset
-			while (pos >= start.length - 1) {
-				when {
-					pos >= end.length && text.matchesAt(pos - end.length, end) -> {
-						nesting++
-						pos -= end.length
-					}
-					pos >= start.length && text.matchesAt(pos - start.length, start) -> {
-						if (nesting == 0) return pos - start.length
-						nesting--
-						pos -= start.length
-					}
-					else -> pos--
-				}
-			}
-			return null
-		}
-
-		private fun CharSequence.matchesAt(index: Int, str: String): Boolean {
-			if (index + str.length > length) return false
-			for (i in str.indices) {
-				if (this[index + i] != str[i]) return false
-			}
-			return true
-		}
 	}
 
 	private class MultiselectFHandler(private val offset: Int = 0, private val select: Boolean = false): VimExtensionHandler {
@@ -316,6 +247,68 @@ class VimMulticursor : VimExtension {
 				text.toRegex().findAll(editor.document.charsSequence).map { it.range }
 			}
 		}
+
+
+		private fun findPairedRange(text: CharSequence, offset: Int, start: String, end: String): Pair<IntRange, IntRange>? {
+			// First try searching forward from cursor
+			val forwardEnd = findClosingPosition(text, offset, start, end)
+			if (forwardEnd != null) {
+				val forwardStart = findOpeningPosition(text, forwardEnd, start, end)
+				if (forwardStart != null) {
+					return Pair(
+						IntRange(forwardStart, forwardStart + start.length - 1),
+						IntRange(forwardEnd, forwardEnd + end.length - 1)
+					)
+				}
+			}
+			return null
+		}
+
+		private fun findClosingPosition(
+			text: CharSequence,
+			fromOffset: Int,
+			start: String,
+			end: String,
+			maxOffset: Int = text.length
+		): Int? {
+			var nesting = 0
+			var pos = fromOffset
+			while (pos < maxOffset) {
+				when {
+					text.matchesAt(pos, start) -> {
+						nesting++
+						pos += start.length
+					}
+					text.matchesAt(pos, end) -> {
+						if (nesting == 0) return pos
+						nesting--
+						pos += end.length
+					}
+					else -> pos++
+				}
+			}
+			return null
+		}
+
+		private fun findOpeningPosition(text: CharSequence, fromOffset: Int, start: String, end: String): Int? {
+			var nesting = 0
+			var pos = fromOffset
+			while (pos >= start.length - 1) {
+				when {
+					pos >= end.length && text.matchesAt(pos - end.length, end) -> {
+						nesting++
+						pos -= end.length
+					}
+					pos >= start.length && text.matchesAt(pos - start.length, start) -> {
+						if (nesting == 0) return pos - start.length
+						nesting--
+						pos -= start.length
+					}
+					else -> pos--
+				}
+			}
+			return null
+		}
 	}
 
 	private class HighlightHandler {
@@ -371,4 +364,12 @@ class VimMulticursor : VimExtension {
 			Font.PLAIN
 		)
 	}
+}
+
+private fun CharSequence.matchesAt(index: Int, str: String): Boolean {
+	if (index + str.length > length) return false
+	for (i in str.indices) {
+		if (this[index + i] != str[i]) return false
+	}
+	return true
 }
