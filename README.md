@@ -7,7 +7,7 @@ VimMulticursor
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/19162-VimMulticursor.svg)](https://plugins.jetbrains.com/plugin/19162-VimMulticursor)
 
 <!-- Plugin description -->
-This plugin brings multiple cursors and selections to `IdeaVim`
+This plugin adds multiple cursor and selection capabilities to `IdeaVim`
 
 ![Preview](https://github.com/dankinsoid/VimMulticursor/blob/main/preview.gif?raw=true)
 
@@ -20,11 +20,11 @@ This plugin brings multiple cursors and selections to `IdeaVim`
    - Click Install and restart IDE
 
 2. Enable the plugin:
-   - Add this line to the top of your `~/.ideavimrc` file:
+   - Add the following line to the top of your `~/.ideavimrc` file:
      ```
      set multicursor
      ```
-   - Restart IdeaVim (`:action IdeaVim.ReloadVimRc`)
+   - Reload IdeaVim settings (`:action IdeaVim.ReloadVimRc`)
 
 ## Commands
 
@@ -61,7 +61,7 @@ This plugin brings multiple cursors and selections to `IdeaVim`
 - `mcaa`: Around any brackets/quotes
 - `mcaw`: Add cursors at word boundaries (start and end of current word)
 
-The `mcia` and `mcaa` commands intelligently find the closest matching pair of delimiters around the cursor, ensuring proper nesting and matching of brackets/quotes.
+The `mcia` and `mcaa` commands automatically find the nearest matching pair of delimiters around the cursor, handling proper nesting and matching of brackets/quotes.
 
 ## Examples
 
