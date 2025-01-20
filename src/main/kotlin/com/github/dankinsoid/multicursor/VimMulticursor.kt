@@ -44,13 +44,6 @@ class VimMulticursor : VimExtension {
 		mapToFunctionAndProvideKeys("aB") { MultiselectTextObjectHandler("\\{[^{}]*\\}", it) }
 		mapToFunctionAndProvideKeys("iB") { MultiselectTextObjectHandler("(?<=\\{).*?(?=\\})", it) }
 
-		mapToFunctionAndProvideKeys("aw") { MultiselectTextObjectHandler("\\w+\\s*", it) }
-		mapToFunctionAndProvideKeys("iw") { MultiselectTextObjectHandler("\\w+", it) }
-		mapToFunctionAndProvideKeys("ab") { MultiselectTextObjectHandler("\\([^()]*\\)", it) }
-		mapToFunctionAndProvideKeys("ib") { MultiselectTextObjectHandler("(?<=\\().*?(?=\\))", it) }
-		mapToFunctionAndProvideKeys("aB") { MultiselectTextObjectHandler("\\{[^{}]*\\}", it) }
-		mapToFunctionAndProvideKeys("iB") { MultiselectTextObjectHandler("(?<=\\{).*?(?=\\})", it) }
-
 		mapToFunctionAndProvideKeys("c", "mc", MulticursorAddHandler(highlightHandler))
 		mapToFunctionAndProvideKeys("r", "mc", MulticursorApplyHandler(highlightHandler))
 		mapToFunctionAndProvideKeys("d", "mc", MulticursorRemoveHandler(highlightHandler))
