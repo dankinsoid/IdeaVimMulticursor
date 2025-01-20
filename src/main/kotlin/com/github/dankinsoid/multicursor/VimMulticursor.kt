@@ -152,14 +152,14 @@ class VimMulticursor : VimExtension {
 		private fun findOpeningPosition(text: CharSequence, fromOffset: Int, start: String, end: String): Int? {
 			var nesting = 0
 			var pos = fromOffset
-			while (pos >= 0) {
+			while (pos >= start.length - 1) {
 				when {
-					text.matchesAt(pos - end.length + 1, end) -> {
+					pos >= end.length && text.matchesAt(pos - end.length, end) -> {
 						nesting++
 						pos -= end.length
 					}
-					text.matchesAt(pos - start.length + 1, start) -> {
-						if (nesting == 0) return pos - start.length + 1
+					pos >= start.length && text.matchesAt(pos - start.length, start) -> {
+						if (nesting == 0) return pos - start.length
 						nesting--
 						pos -= start.length
 					}
