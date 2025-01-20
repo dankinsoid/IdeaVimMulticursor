@@ -124,8 +124,10 @@ class VimMulticursor : VimExtension {
 			selectedCarets.clear()
 		}
 	}
-		companion object {
-			private val selectedCarets: MutableList<IntRange> = mutableListOf()
+
+	companion object {
+
+		private val selectedCarets: MutableList<IntRange> = mutableListOf()
 
 		private fun select(editor: Editor, regex: String, select: Boolean = true, offset: Int = 0) {
 			editor.setCarets(ranges(regex, editor), select, offset)
