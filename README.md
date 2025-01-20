@@ -36,6 +36,13 @@ This plugin brings multiple cursors and selections to `IdeaVim`
 ### Available Commands
 - `/regex-pattern`: Search for regex pattern
 - `f{char}`: Find character forward
+- Text Objects:
+  - `aw`: Around word (includes trailing space)
+  - `iw`: Inside word
+  - `ab`: Around brackets ()
+  - `ib`: Inside brackets ()
+  - `aB`: Around braces {}
+  - `iB`: Inside braces {}
 - `F{char}`: Find character backward
 - `t{char}`: Till before character forward
 - `T{char}`: Till before character backward

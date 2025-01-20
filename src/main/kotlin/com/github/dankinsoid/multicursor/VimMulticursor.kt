@@ -35,6 +35,14 @@ class VimMulticursor : VimExtension {
 		mapToFunctionAndProvideKeys("ge") { MultiselectHandler("[^\\W](?=\\W|\\Z)", it) }
 		mapToFunctionAndProvideKeys("gE") { MultiselectHandler("[^\\s](?=\\s|\\Z)", it) }
 
+		// Text object commands
+		mapToFunctionAndProvideKeys("aw") { MultiselectTextObjectHandler("\\w+\\s*", it) }
+		mapToFunctionAndProvideKeys("iw") { MultiselectTextObjectHandler("\\w+", it) }
+		mapToFunctionAndProvideKeys("ab") { MultiselectTextObjectHandler("\\([^()]*\\)", it) }
+		mapToFunctionAndProvideKeys("ib") { MultiselectTextObjectHandler("(?<=\\().*?(?=\\))", it) }
+		mapToFunctionAndProvideKeys("aB") { MultiselectTextObjectHandler("\\{[^{}]*\\}", it) }
+		mapToFunctionAndProvideKeys("iB") { MultiselectTextObjectHandler("(?<=\\{).*?(?=\\})", it) }
+
 		mapToFunctionAndProvideKeys("a", "mc", MulticursorAddHandler(highlightHandler))
 		mapToFunctionAndProvideKeys("i", "mc", MulticursorApplyHandler(highlightHandler))
 		mapToFunctionAndProvideKeys("d", "mc", MulticursorRemoveHandler(highlightHandler))
@@ -73,6 +81,20 @@ class VimMulticursor : VimExtension {
 	private class MultiselectHandler(private val rexeg: String, private val select: Boolean = false): VimExtensionHandler {
 		override fun execute(editor: Editor, context: DataContext) {
 			select(editor, rexeg, select)
+		}
+	}
+
+	private class MultiselectTextObjectHandler(private val regex: String, private val select: Boolean = false): VimExtensionHandler {
+		override fun execute(editor: Editor, context: DataContext) {
+			val offset = editor.caretModel.primaryCaret.offset
+			val text = editor.document.charsSequence
+			val matches = regex.toRegex().findAll(text)
+			val range = matches.find { match -> 
+				match.range.contains(offset)
+			}?.range
+			if (range != null) {
+				editor.setCarets(sequenceOf(range), select)
+			}
 		}
 	}
 
