@@ -17,11 +17,11 @@
 
         Supported Commands:
         • Navigation
+          - mc/ + search: Add cursors at all occurrences of search regex.
+          - mcfx/mcFx: Add cursors at all occurrences of character x.
           - mcw/mcW: Add cursors at next words start.
           - mcb/mcB: Add cursors at previous words start.
           - mce/mcE: Add cursors at words end.
-          - mcfx/mcFx: Add cursors at all occurrences of character x.
-          - mc/ + search: Add cursors at all occurrences of search regex.
 
         • Around text objects with cursors
           - mcaw: Around word
@@ -36,7 +36,6 @@
 
         Full guide: https://github.com/dankinsoid/VimMulticursor
     ]]></description>
-    </description>
 
     <extensions defaultExtensionNs="IdeaVIM">
         <vimExtension implementation="com.github.dankinsoid.multicursor.VimMulticursor"/>
