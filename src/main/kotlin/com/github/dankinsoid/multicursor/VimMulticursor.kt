@@ -39,6 +39,8 @@ class VimMulticursor : VimExtension {
 		// Text object commands with explicit prefixes
 		mapToFunctionAndProvideKeys("ab") { MultiselectTextObjectHandler("(", ")", false, it) }
 		mapToFunctionAndProvideKeys("aB") { MultiselectTextObjectHandler("{", "}", false, it) }
+		mapToFunctionAndProvideKeys("a(") { MultiselectTextObjectHandler("(", ")", false, it) }
+		mapToFunctionAndProvideKeys("a{") { MultiselectTextObjectHandler("{", "}", false, it) }
 		mapToFunctionAndProvideKeys("a[") { MultiselectTextObjectHandler("[", "]", false, it) }
 		mapToFunctionAndProvideKeys("a<") { MultiselectTextObjectHandler("<", ">", false, it) }
 		mapToFunctionAndProvideKeys("a\"") { MultiselectTextObjectHandler("\"", "\"", false, it) }
@@ -48,6 +50,8 @@ class VimMulticursor : VimExtension {
 		// Inside versions
 		mapToFunctionAndProvideKeys("ib") { MultiselectTextObjectHandler("(", ")", true, it) }
 		mapToFunctionAndProvideKeys("iB") { MultiselectTextObjectHandler("{", "}", true, it) }
+		mapToFunctionAndProvideKeys("i(") { MultiselectTextObjectHandler("(", ")", true, it) }
+		mapToFunctionAndProvideKeys("i{") { MultiselectTextObjectHandler("{", "}", true, it) }
 		mapToFunctionAndProvideKeys("i[") { MultiselectTextObjectHandler("[", "]", true, it) }
 		mapToFunctionAndProvideKeys("i<") { MultiselectTextObjectHandler("<", ">", true, it) }
 		mapToFunctionAndProvideKeys("i\"") { MultiselectTextObjectHandler("\"", "\"", true, it) }
@@ -112,7 +116,7 @@ class VimMulticursor : VimExtension {
 					start = IntRange(start.first + startDelimiter.length, start.last + startDelimiter.length)
 				} else {
 					// For "a" commands, extend end range to include the closing delimiter
-					end = IntRange(end.first, end.last + endDelimiter.length)
+					end = IntRange(end.first + endDelimiter.length, end.last + endDelimiter.length)
 				}
 				editor.setCarets(sequenceOf(start, end), select)
 			}

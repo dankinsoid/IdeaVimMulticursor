@@ -55,7 +55,7 @@ This plugin brings multiple cursors and selections to `IdeaVim`
 
 ### Cursor Management
 - `mcc`: Add/remove a virtual cursor at current position
-- `mci`: Convert virtual cursors to real cursors (for editing)
+- `mcr`: Convert virtual cursors to real cursors (for editing)
 - `mcd`: Delete all virtual cursors
 
 ## Examples
