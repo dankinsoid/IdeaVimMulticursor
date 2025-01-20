@@ -98,6 +98,7 @@ class VimMulticursor : VimExtension {
 	private class MultiselectTextObjectHandler(
 		private val startDelimiter: String,
 		private val endDelimiter: String,
+		private  val inside: Boolean = false,
 		private val select: Boolean = false
 	): VimExtensionHandler {
 		override fun execute(editor: Editor, context: DataContext) {
@@ -105,7 +106,12 @@ class VimMulticursor : VimExtension {
 			val text = editor.document.charsSequence
 			val ranges = findPairedRange(text, offset, startDelimiter, endDelimiter)
 			if (ranges != null) {
-				val (start, end) = ranges
+				var (start, end) = ranges
+				if (inside) {
+					// increment start by 1
+				} else {
+				    // increment end by 1
+				}
 				editor.setCarets(sequenceOf(start, end), select)
 			}
 		}
