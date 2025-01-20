@@ -206,28 +206,47 @@ class VimMulticursor : VimExtension {
 	private class MultiselectFHandler(private val offset: Int = 0, private val select: Boolean = false): VimExtensionHandler {
 		override fun execute(editor: Editor, context: DataContext) {
 			val char = getChar(editor) ?: return
-			val caretOffset = editor.caretModel.primaryCaret.offset
 			val text = editor.document.charsSequence
+			val selections = editor.selections()
 			val ranges = mutableListOf<IntRange>()
 			
-			// Search forward from caret
-			var pos = caretOffset
-			while (pos < text.length) {
-				if (text[pos] == char) {
-					val rangeStart = pos + offset
-					ranges.add(IntRange(rangeStart, rangeStart))
+			if (selections.count() > 0) {
+				// If there are selections, only search within them
+				for (selection in selections) {
+					var pos = selection.first
+					while (pos <= selection.last) {
+						if (text[pos] == char) {
+							val rangeStart = pos + offset
+							if (rangeStart >= selection.first && rangeStart <= selection.last) {
+								ranges.add(IntRange(rangeStart, rangeStart))
+							}
+						}
+						pos++
+					}
 				}
-				pos++
-			}
-			
-			// Search backward from caret
-			pos = caretOffset - 1
-			while (pos >= 0) {
-				if (text[pos] == char) {
-					val rangeStart = pos + offset
-					ranges.add(IntRange(rangeStart, rangeStart))
+			} else {
+				// No selections, search in entire document
+				val caretOffset = editor.caretModel.primaryCaret.offset
+				
+				// Search forward from caret
+				var pos = caretOffset
+				while (pos < text.length) {
+					if (text[pos] == char) {
+						val rangeStart = pos + offset
+						ranges.add(IntRange(rangeStart, rangeStart))
+					}
+					pos++
 				}
-				pos--
+				
+				// Search backward from caret
+				pos = caretOffset - 1
+				while (pos >= 0) {
+					if (text[pos] == char) {
+						val rangeStart = pos + offset
+						ranges.add(IntRange(rangeStart, rangeStart))
+					}
+					pos--
+				}
 			}
 			
 			if (ranges.isNotEmpty()) {
