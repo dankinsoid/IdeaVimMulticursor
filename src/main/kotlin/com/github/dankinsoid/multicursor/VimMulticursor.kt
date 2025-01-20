@@ -103,20 +103,23 @@ class VimMulticursor : VimExtension {
 		override fun execute(editor: Editor, context: DataContext) {
 			val offset = editor.caretModel.primaryCaret.offset
 			val text = editor.document.charsSequence
-			val range = findPairedRange(text, offset, startDelimiter, endDelimiter)
-		println(range)	
-			if (range != null) {
-				editor.setCarets(sequenceOf(range), select)
+			val ranges = findPairedRange(text, offset, startDelimiter, endDelimiter)
+			if (ranges != null) {
+				val (start, end) = ranges
+				editor.setCarets(sequenceOf(start, end), select)
 			}
 		}
 
-		private fun findPairedRange(text: CharSequence, offset: Int, start: String, end: String): IntRange? {
+		private fun findPairedRange(text: CharSequence, offset: Int, start: String, end: String): Pair<IntRange, IntRange>? {
 			// First try searching forward from cursor
 			val forwardEnd = findClosingPosition(text, offset, start, end)
 			if (forwardEnd != null) {
 				val forwardStart = findOpeningPosition(text, forwardEnd, start, end)
 				if (forwardStart != null) {
-					return IntRange(forwardStart, forwardEnd + end.length - 1)
+					return Pair(
+						IntRange(forwardStart, forwardStart + start.length - 1),
+						IntRange(forwardEnd, forwardEnd + end.length - 1)
+					)
 				}
 			}
 			return null
