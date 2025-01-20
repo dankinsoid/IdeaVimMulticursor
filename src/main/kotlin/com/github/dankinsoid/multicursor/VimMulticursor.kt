@@ -59,8 +59,8 @@ class VimMulticursor : VimExtension {
 		mapToFunctionAndProvideKeys("i`") { MultiselectTextObjectHandler("`", "`", true, it) }
 
 		// Any brackets handlers
-		mapToFunctionAndProvideKeys("ia") { MultiselectTextObjectHandler("[({\"]", "[)}\"]", true, it) }
-		mapToFunctionAndProvideKeys("aa") { MultiselectTextObjectHandler("[({\"]", "[)}\"]", false, it) }
+		mapToFunctionAndProvideKeys("ia", "mc") { MultiselectAnyTextObjectHandler(true, it) }
+		mapToFunctionAndProvideKeys("aa", "mc") { MultiselectAnyTextObjectHandler(false, it) }
 
 		mapToFunctionAndProvideKeys("c", "mc", MulticursorAddHandler(highlightHandler))
 		mapToFunctionAndProvideKeys("r", "mc", MulticursorApplyHandler(highlightHandler))
@@ -100,6 +100,58 @@ class VimMulticursor : VimExtension {
 	private class MultiselectHandler(private val rexeg: String, private val select: Boolean = false): VimExtensionHandler {
 		override fun execute(editor: Editor, context: DataContext) {
 			select(editor, rexeg, select)
+		}
+	}
+
+	private class MultiselectAnyTextObjectHandler(
+		private val inside: Boolean = false,
+		private val select: Boolean = false
+	): VimExtensionHandler {
+		override fun execute(editor: Editor, context: DataContext) {
+			val offset = editor.caretModel.primaryCaret.offset
+			val text = editor.document.charsSequence
+			
+			// Define all possible pairs
+			val pairs = listOf(
+				"(" to ")",
+				"[" to "]",
+				"{" to "}",
+				"\"" to "\"",
+				"'" to "'",
+				"`" to "`"
+			)
+			
+			// Find the closest pair
+			var closestRange: Pair<IntRange, IntRange>? = null
+			var minDistance = Int.MAX_VALUE
+			
+			for ((openDelim, closeDelim) in pairs) {
+				val range = findPairedRange(text, offset, openDelim, closeDelim)
+				if (range != null) {
+					val distance = minOf(
+						(range.first.first - offset).absoluteValue,
+						(range.first.last - offset).absoluteValue,
+						(range.second.first - offset).absoluteValue,
+						(range.second.last - offset).absoluteValue
+					)
+					if (distance < minDistance) {
+						minDistance = distance
+						closestRange = range
+					}
+				}
+			}
+			
+			if (closestRange != null) {
+				var (start, end) = closestRange
+				if (inside) {
+					// For "i" commands, move start range after the opening delimiter
+					start = IntRange(start.first + 1, start.last + 1)
+				} else {
+					// For "a" commands, extend end range to include the closing delimiter
+					end = IntRange(end.first + 1, end.last + 1)
+				}
+				editor.setCarets(sequenceOf(start, end), select)
+			}
 		}
 	}
 
