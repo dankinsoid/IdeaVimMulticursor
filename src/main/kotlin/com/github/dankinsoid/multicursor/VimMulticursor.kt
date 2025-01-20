@@ -53,8 +53,7 @@ class VimMulticursor : VimExtension {
 						highlightHandler.clearAllMulticursorHighlighters(editor)
 						false
 					}
-					key.keyCode == KeyEvent.VK_ENTER -> {
-						exEntryPanel.deactivate(true)
+					KeyEvent.VK_ENTER -> {
 						highlightHandler.clearAllMulticursorHighlighters(editor)
 						panel.deactivate(refocusOwningEditor = false, resetCaret = true)
 						select(editor, panel.actualText, select)

@@ -34,7 +34,7 @@ This plugin brings multiple cursors and selections to `IdeaVim`
 - Commands work only in selected text if there's an active selection
 
 ### Available Commands
-- `/pattern`: Search for pattern
+- `/regex-pattern`: Search for regex pattern
 - `f{char}`: Find character forward
 - `F{char}`: Find character backward
 - `t{char}`: Till before character forward
