@@ -37,22 +37,22 @@ class VimMulticursor : VimExtension {
 		mapToFunctionAndProvideKeys("gE") { MultiselectHandler("[^\\s](?=\\s|\\Z)", it) }
 
 		// Text object commands with explicit prefixes
-		mapToFunctionAndProvideKeys("ab") { MultiselectTextObjectHandler("(", ")", it) }
-		mapToFunctionAndProvideKeys("aB") { MultiselectTextObjectHandler("{", "}", it) }
-		mapToFunctionAndProvideKeys("a[") { MultiselectTextObjectHandler("[", "]", it) }
-		mapToFunctionAndProvideKeys("a<") { MultiselectTextObjectHandler("<", ">", it) }
-		mapToFunctionAndProvideKeys("a\"") { MultiselectTextObjectHandler("\"", "\"", it) }
-		mapToFunctionAndProvideKeys("a'") { MultiselectTextObjectHandler("'", "'", it) }
-		mapToFunctionAndProvideKeys("a`") { MultiselectTextObjectHandler("`", "`", it) }
+		mapToFunctionAndProvideKeys("ab") { MultiselectTextObjectHandler("(", ")", false, it) }
+		mapToFunctionAndProvideKeys("aB") { MultiselectTextObjectHandler("{", "}", false, it) }
+		mapToFunctionAndProvideKeys("a[") { MultiselectTextObjectHandler("[", "]", false, it) }
+		mapToFunctionAndProvideKeys("a<") { MultiselectTextObjectHandler("<", ">", false, it) }
+		mapToFunctionAndProvideKeys("a\"") { MultiselectTextObjectHandler("\"", "\"", false, it) }
+		mapToFunctionAndProvideKeys("a'") { MultiselectTextObjectHandler("'", "'", false, it) }
+		mapToFunctionAndProvideKeys("a`") { MultiselectTextObjectHandler("`", "`", false, it) }
 		
 		// Inside versions
-		mapToFunctionAndProvideKeys("ib") { MultiselectTextObjectHandler("(", ")", it) }
-		mapToFunctionAndProvideKeys("iB") { MultiselectTextObjectHandler("{", "}", it) }
-		mapToFunctionAndProvideKeys("i[") { MultiselectTextObjectHandler("[", "]", it) }
-		mapToFunctionAndProvideKeys("i<") { MultiselectTextObjectHandler("<", ">", it) }
-		mapToFunctionAndProvideKeys("i\"") { MultiselectTextObjectHandler("\"", "\"", it) }
-		mapToFunctionAndProvideKeys("i'") { MultiselectTextObjectHandler("'", "'", it) }
-		mapToFunctionAndProvideKeys("i`") { MultiselectTextObjectHandler("`", "`", it) }
+		mapToFunctionAndProvideKeys("ib") { MultiselectTextObjectHandler("(", ")", true, it) }
+		mapToFunctionAndProvideKeys("iB") { MultiselectTextObjectHandler("{", "}", true, it) }
+		mapToFunctionAndProvideKeys("i[") { MultiselectTextObjectHandler("[", "]", true, it) }
+		mapToFunctionAndProvideKeys("i<") { MultiselectTextObjectHandler("<", ">", true, it) }
+		mapToFunctionAndProvideKeys("i\"") { MultiselectTextObjectHandler("\"", "\"", true, it) }
+		mapToFunctionAndProvideKeys("i'") { MultiselectTextObjectHandler("'", "'", true, it) }
+		mapToFunctionAndProvideKeys("i`") { MultiselectTextObjectHandler("`", "`", true, it) }
 
 		mapToFunctionAndProvideKeys("c", "mc", MulticursorAddHandler(highlightHandler))
 		mapToFunctionAndProvideKeys("r", "mc", MulticursorApplyHandler(highlightHandler))
@@ -107,7 +107,7 @@ class VimMulticursor : VimExtension {
 			val ranges = findPairedRange(text, offset, startDelimiter, endDelimiter)
 			if (ranges != null) {
 				var (start, end) = ranges
-				if (startDelimiter.startsWith("i")) {
+				if (inside) {
 					// For "i" commands, move start range after the opening delimiter
 					start = IntRange(start.first + startDelimiter.length, start.last + startDelimiter.length)
 				} else {
