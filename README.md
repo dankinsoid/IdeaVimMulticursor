@@ -57,9 +57,11 @@ This plugin brings multiple cursors and selections to `IdeaVim`
 - `mcc`: Add/remove a virtual cursor at current position
 - `mcr`: Convert virtual cursors to real cursors (for editing)
 - `mcd`: Delete all virtual cursors
-- `mcia`: Inside any brackets/quotes ((), [], {}, "", '')
+- `mcia`: Inside any brackets/quotes ((), [], {}, "", '', ``)
 - `mcaa`: Around any brackets/quotes
 - `mcaw`: Add cursors at word boundaries (start and end of current word)
+
+The `mcia` and `mcaa` commands intelligently find the closest matching pair of delimiters around the cursor, ensuring proper nesting and matching of brackets/quotes.
 
 ## Examples
 
