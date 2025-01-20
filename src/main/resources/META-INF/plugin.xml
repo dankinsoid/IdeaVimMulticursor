@@ -9,46 +9,41 @@
     <depends>com.intellij.modules.platform</depends>
     <depends>IdeaVIM</depends>
 
-    <description><![CDATA[
-        A powerful extension for IdeaVim that brings multiple cursors and selections by Vim commands.
+        A powerful extension for IdeaVim that adds multiple cursors and selections through Vim commands.
+        Use 'mc' prefix to create multiple cursors or 'ms' prefix to create multiple selections,
+        followed by any supported Vim command.
 
-        Key Features:
-        • Multiple Cursors (mc prefix)
-          - Add/remove cursors at specific positions (mcc)
-          - Convert virtual cursors to real ones (mcr)
-          - Clear all cursors (mcd)
-          - Add cursors at word boundaries (mcaw)
-          - Smart bracket/quote matching (mcia, mcaa)
+        Supported Commands:
 
-        • Multiple Selections (ms prefix)
-          - Select by regex pattern (ms/)
-          - Text object selections (msib, msiB, etc.)
-          - Word-based selections (msw, msb)
-          - Character navigation (msf, msF, mst, msT)
-
-        • Text Objects Support
-          - Words: aw (around word), iw (inside word)
+        • Text Objects
+          - Word: aw (around word), iw (inside word)
           - Brackets: ab/ib (), aB/iB {}
           - Quotes: a'/i' '', a"/i" "", a`/i` ``
-          - Smart any-bracket: aa (around any), ia (inside any)
+          - Any bracket/quote: aa/ia (smart matching)
 
-        • Navigation Commands
-          - Word-based: w/W (next word), b/B (prev word), e/E (word end)
-          - Character-based: f/F (find char), t/T (till char)
-          - Pattern-based: / (regex search)
+        • Navigation
+          - Word: w/W (next word), b/B (prev word), e/E (word end)
+          - Character: f/F (find char), t/T (till char)
+          - Pattern: / (regex search)
 
-        • Intelligent Features
-          - Context-aware bracket matching
-          - Nested quotes/brackets handling
-          - Works within selected text regions
-          - Preserves relative cursor positions
+        • Cursor Management
+          - mcc: Add/remove cursor at position
+          - mcr: Convert virtual cursors to real
+          - mcd: Clear all cursors
+          - mcaw: Add at word boundaries
+          - mcia/mcaa: Inside/around any bracket
 
-        Configuration:
+        Features:
+          - Smart bracket/quote matching
+          - Nested delimiters support
+          - Works in selected regions
+          - Preserves cursor positions
+
+        Setup:
         1. Add 'set multicursor' to ~/.ideavimrc
-        2. Optional key mappings available (see docs)
+        2. Optional mappings in documentation
 
-        For detailed usage examples and full documentation:
-        https://github.com/dankinsoid/VimMulticursor
+        Full guide: https://github.com/dankinsoid/VimMulticursor
     ]]></description>
 
     <extensions defaultExtensionNs="IdeaVIM">
