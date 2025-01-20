@@ -59,8 +59,8 @@ class VimMulticursor : VimExtension {
 		mapToFunctionAndProvideKeys("i`") { MultiselectTextObjectHandler("`", "`", true, it) }
 
 		// Any brackets handlers
-		mapToFunctionAndProvideKeys("ia", "mc", MultiselectTextObjectHandler("[({\"]", "[)}\"]", true, it))
-		mapToFunctionAndProvideKeys("aa", "mc", MultiselectTextObjectHandler("[({\"]", "[)}\"]", false, it))
+		mapToFunctionAndProvideKeys("ia", "mc") { MultiselectTextObjectHandler("[({\"]", "[)}\"]", true, it) }
+		mapToFunctionAndProvideKeys("aa", "mc") { MultiselectTextObjectHandler("[({\"]", "[)}\"]", false, it) }
 
 		mapToFunctionAndProvideKeys("c", "mc", MulticursorAddHandler(highlightHandler))
 		mapToFunctionAndProvideKeys("r", "mc", MulticursorApplyHandler(highlightHandler))
