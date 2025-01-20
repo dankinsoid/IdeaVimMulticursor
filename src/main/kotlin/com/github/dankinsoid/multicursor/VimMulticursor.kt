@@ -95,10 +95,17 @@ class VimMulticursor : VimExtension {
 		override fun execute(editor: Editor, context: DataContext) {
 			val offset = editor.caretModel.primaryCaret.offset
 			val text = editor.document.charsSequence
-			val matches = regex.toRegex().findAll(text)
-			val range = matches.find { match -> 
-				match.range.contains(offset)
+			val matches = regex.toRegex().findAll(text).toList()
+			val range = matches.minByOrNull { match ->
+				if (match.range.contains(offset)) {
+					0
+				} else {
+					val distanceToStart = (match.range.first - offset).absoluteValue
+					val distanceToEnd = (match.range.last - offset).absoluteValue
+					minOf(distanceToStart, distanceToEnd)
+				}
 			}?.range
+			
 			if (range != null) {
 				editor.setCarets(sequenceOf(range), select)
 			}
