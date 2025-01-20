@@ -18,10 +18,9 @@
         Supported Commands:
         • Navigation
           - mc/ + search: Add cursors at all occurrences of search regex.
-          - mcfx/mcFx: Add cursors at all occurrences of character x.
-          - mcw/mcW: Add cursors at next words start.
-          - mcb/mcB: Add cursors at previous words start.
-          - mce/mcE: Add cursors at words end.
+          - mcfx, mcFx: Add cursors at all occurrences of character x.
+          - mcw, mcW, mcb, mcB: Add cursors at words start.
+          - mce, mcE: Add cursors at words end.
 
         • Around text objects with cursors
           - mcaw: Around word
