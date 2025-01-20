@@ -111,21 +111,44 @@ class VimMulticursor : VimExtension {
 		}
 
 		private fun findPairedRange(text: CharSequence, offset: Int, start: String, end: String): IntRange? {
-			// First find the closest end delimiter going forward
-			var endPos = findClosingPosition(text, offset, start, end) ?: return null
-			// Then find the matching start delimiter going backward
-			var startPos = findOpeningPosition(text, endPos, start, end) ?: return null
-			
-			// If cursor was inside a pair, also check if there's a closer pair
-			if (offset > startPos && offset < endPos) {
-				val closerEndPos = findClosingPosition(text, startPos, start, end, offset)
-				if (closerEndPos != null && closerEndPos < endPos) {
-					endPos = closerEndPos
-					startPos = findOpeningPosition(text, endPos, start, end) ?: return null
+			// Search both directions from cursor to find closest pair
+			var bestStartPos: Int? = null
+			var bestEndPos: Int? = null
+			var bestDistance = Int.MAX_VALUE
+
+			// Search forward from cursor
+			val forwardEnd = findClosingPosition(text, offset, start, end)
+			if (forwardEnd != null) {
+				val forwardStart = findOpeningPosition(text, forwardEnd, start, end)
+				if (forwardStart != null) {
+					val distance = (forwardEnd - offset).absoluteValue
+					if (distance < bestDistance) {
+						bestStartPos = forwardStart
+						bestEndPos = forwardEnd
+						bestDistance = distance
+					}
 				}
 			}
-			
-			return IntRange(startPos, endPos + end.length - 1)
+
+			// Search backward from cursor
+			val backwardStart = findOpeningPosition(text, offset, start, end)
+			if (backwardStart != null) {
+				val backwardEnd = findClosingPosition(text, backwardStart, start, end)
+				if (backwardEnd != null) {
+					val distance = (backwardStart - offset).absoluteValue
+					if (distance < bestDistance) {
+						bestStartPos = backwardStart
+						bestEndPos = backwardEnd
+						bestDistance = distance
+					}
+				}
+			}
+
+			return if (bestStartPos != null && bestEndPos != null) {
+				IntRange(bestStartPos, bestEndPos + end.length - 1)
+			} else {
+				null
+			}
 		}
 
 		private fun findClosingPosition(
