@@ -9,6 +9,22 @@
     <depends>com.intellij.modules.platform</depends>
     <depends>IdeaVIM</depends>
 
+    <description><![CDATA[
+        This plugin brings multiple cursors and selections to IdeaVim.
+
+        Features:
+        - Create multiple cursors with 'mc' command prefix
+        - Create multiple selections with 'ms' command prefix
+        - Supports text objects (word, brackets, quotes)
+        - Search-based selection with regex patterns
+        - Character-based navigation (f, F, t, T)
+        - Word navigation (w, W, b, B, e, E)
+        - Intelligent bracket/quote matching
+
+        See full documentation and examples at:
+        https://github.com/dankinsoid/VimMulticursor
+    ]]></description>
+
     <extensions defaultExtensionNs="IdeaVIM">
         <vimExtension implementation="com.github.dankinsoid.multicursor.VimMulticursor"/>
     </extensions>
