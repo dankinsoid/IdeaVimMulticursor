@@ -31,7 +31,7 @@ This plugin brings multiple cursors and selections to `IdeaVim`
 ### Basic Usage
 - `mc` + command: Create multiple cursors
 - `ms` + command: Create multiple selections
-- Commands work only in selected text if there's an active selection
+- All commands work within selected text when there's an active selection
 
 ### Available Commands
 - `/regex-pattern`: Search for regex pattern
