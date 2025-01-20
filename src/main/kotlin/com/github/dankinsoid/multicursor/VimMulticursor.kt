@@ -40,6 +40,7 @@ class VimMulticursor : VimExtension {
 		mapToFunctionAndProvideKeys("ab") { MultiselectTextObjectHandler("(", ")", it) }
 		mapToFunctionAndProvideKeys("aB") { MultiselectTextObjectHandler("{", "}", it) }
 		mapToFunctionAndProvideKeys("a[") { MultiselectTextObjectHandler("[", "]", it) }
+		mapToFunctionAndProvideKeys("a<") { MultiselectTextObjectHandler("<", ">", it) }
 		mapToFunctionAndProvideKeys("a\"") { MultiselectTextObjectHandler("\"", "\"", it) }
 		mapToFunctionAndProvideKeys("a'") { MultiselectTextObjectHandler("'", "'", it) }
 		mapToFunctionAndProvideKeys("a`") { MultiselectTextObjectHandler("`", "`", it) }
@@ -48,6 +49,7 @@ class VimMulticursor : VimExtension {
 		mapToFunctionAndProvideKeys("ib") { MultiselectTextObjectHandler("(", ")", it) }
 		mapToFunctionAndProvideKeys("iB") { MultiselectTextObjectHandler("{", "}", it) }
 		mapToFunctionAndProvideKeys("i[") { MultiselectTextObjectHandler("[", "]", it) }
+		mapToFunctionAndProvideKeys("i<") { MultiselectTextObjectHandler("<", ">", it) }
 		mapToFunctionAndProvideKeys("i\"") { MultiselectTextObjectHandler("\"", "\"", it) }
 		mapToFunctionAndProvideKeys("i'") { MultiselectTextObjectHandler("'", "'", it) }
 		mapToFunctionAndProvideKeys("i`") { MultiselectTextObjectHandler("`", "`", it) }
@@ -102,6 +104,7 @@ class VimMulticursor : VimExtension {
 			val offset = editor.caretModel.primaryCaret.offset
 			val text = editor.document.charsSequence
 			val range = findPairedRange(text, offset, startDelimiter, endDelimiter)
+			println(range)
 			if (range != null) {
 				editor.setCarets(sequenceOf(range), select)
 			}
