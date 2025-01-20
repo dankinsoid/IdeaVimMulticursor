@@ -107,10 +107,12 @@ class VimMulticursor : VimExtension {
 			val ranges = findPairedRange(text, offset, startDelimiter, endDelimiter)
 			if (ranges != null) {
 				var (start, end) = ranges
-				if (inside) {
-					// increment start by 1
+				if (startDelimiter.startsWith("i")) {
+					// For "i" commands, move start range after the opening delimiter
+					start = IntRange(start.first + startDelimiter.length, start.last + startDelimiter.length)
 				} else {
-				    // increment end by 1
+					// For "a" commands, extend end range to include the closing delimiter
+					end = IntRange(end.first, end.last + endDelimiter.length)
 				}
 				editor.setCarets(sequenceOf(start, end), select)
 			}
