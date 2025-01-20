@@ -11,36 +11,91 @@ This plugin brings multiple cursors and selections to `IdeaVim`
 
 ![Preview](https://github.com/dankinsoid/VimMulticursor/blob/main/preview.gif?raw=true)
 
-## Usage
+## Installation & Setup
 
-- Type `mc` (<ins>m</ins>ulti<ins>c</ins>ursor) and a vim command to create cursors
-- Type `ms` (<ins>m</ins>ulti<ins>s</ins>elect) and a vim command to select multiple items
-- If you previously selected some text, then the commands work only in the selected text
-- Supported vim commands: `/`, `f`, `t`, `w`, `W`, `b`, `B`, `e`, `E`
+1. Install the plugin:
+   - Open IntelliJ IDEA
+   - Go to Settings/Preferences → Plugins → Marketplace
+   - Search for "VimMulticursor"
+   - Click Install and restart IDE
 
+2. Enable the plugin:
+   - Add this line to the top of your `~/.ideavimrc` file:
+     ```
+     set multicursor
+     ```
+   - Restart IdeaVim (`:action IdeaVim.ReloadVimRc`)
 
-- Type `mca` (<ins>m</ins>ulti<ins>c</ins>ursor <ins>a</ins>dd) to add (or remove) a virtual caret
-- Type `mci` (<ins>m</ins>ulti<ins>c</ins>ursor <ins>i</ins>nsert) to insert real carets instead of virtual
-- Type `mcd` (<ins>m</ins>ulti<ins>c</ins>ursor <ins>d</ins>elete) to remove all virtual carets
+## Commands
 
-Example:
+### Basic Usage
+- `mc` + command: Create multiple cursors
+- `ms` + command: Create multiple selections
+- Commands work only in selected text if there's an active selection
 
-type `ms/print` to select all `print`s in selected text
+### Available Commands
+- `/pattern`: Search for pattern
+- `f{char}`: Find character forward
+- `F{char}`: Find character backward
+- `t{char}`: Till before character forward
+- `T{char}`: Till before character backward
+- `w`: Next word start
+- `W`: Next WORD start
+- `b`: Previous word start
+- `B`: Previous WORD start
+- `e`: Next word end
+- `E`: Next WORD end
 
-## Setup
+### Cursor Management
+- `mca`: Add/remove a virtual cursor at current position
+- `mci`: Convert virtual cursors to real cursors (for editing)
+- `mcd`: Delete all virtual cursors
 
-Install plugin from Intellij Idea Marketplace and add the following option on top of your `./ideavimrc`:
+## Examples
 
-```
-set multicursor
-```
-also you can map commands, for example: 
-```
+1. Select all occurrences of "print":
+   ```
+   ms/print<Enter>
+   ```
+
+2. Create cursors at each word start in selection:
+   ```
+   msw
+   ```
+
+3. Add cursors at specific positions:
+   1. Move cursor to desired position
+   2. Type `mca` to add cursor
+   3. Repeat for more positions
+   4. Type `mci` to convert to real cursors
+
+## Optional Key Mappings
+
+Add these to your `~/.ideavimrc` for faster access:
+```vim
+" Quick search-select
 map q <Plug>(multicursor-ms/)
+
+" Quick cursor add/apply
 map z <Plug>(multicursor-mca)
 map Z <Plug>(multicursor-mci)
+
+" Word-based selections
+map <leader>w <Plug>(multicursor-msw)
+map <leader>b <Plug>(multicursor-msb)
 ```
-After IdeaVim reboot you can use this plugin
+
+## Troubleshooting
+
+1. Commands not working?
+   - Ensure `set multicursor` is at the top of `.ideavimrc`
+   - Restart IdeaVim after changes
+   - Check if IdeaVim plugin is enabled
+
+2. Cursors not appearing?
+   - Make sure you're in normal mode
+   - Try clearing cursors with `mcd`
+   - Restart IDE if issues persist
 <!-- Plugin description end -->
 
 ## License
