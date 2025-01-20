@@ -111,46 +111,25 @@ class VimMulticursor : VimExtension {
 		}
 
 		private fun findPairedRange(text: CharSequence, offset: Int, start: String, end: String): IntRange? {
-			// Search both directions from cursor to find closest pair
-			var bestStartPos: Int? = null
-			var bestEndPos: Int? = null
-			var bestDistance = Int.MAX_VALUE
-
-			// Search forward from cursor
+			// First try searching forward from cursor
 			val forwardEnd = findClosingPosition(text, offset, start, end)
-			println(forwardEnd)
 			if (forwardEnd != null) {
 				val forwardStart = findOpeningPosition(text, forwardEnd, start, end)
-				println(forwardStart)
 				if (forwardStart != null) {
-					val distance = (forwardEnd - offset).absoluteValue
-					if (distance < bestDistance) {
-						bestStartPos = forwardStart
-						bestEndPos = forwardEnd
-						bestDistance = distance
-					}
+					return IntRange(forwardStart, forwardEnd + end.length - 1)
 				}
 			}
 
-			// Search backward from cursor
+			// If no match found forward, try searching backward
 			val backwardStart = findOpeningPosition(text, offset, start, end)
 			if (backwardStart != null) {
 				val backwardEnd = findClosingPosition(text, backwardStart, start, end)
 				if (backwardEnd != null) {
-					val distance = (backwardStart - offset).absoluteValue
-					if (distance < bestDistance) {
-						bestStartPos = backwardStart
-						bestEndPos = backwardEnd
-						bestDistance = distance
-					}
+					return IntRange(backwardStart, backwardEnd + end.length - 1)
 				}
 			}
 
-			return if (bestStartPos != null && bestEndPos != null) {
-				IntRange(bestStartPos, bestEndPos + end.length - 1)
-			} else {
-				null
-			}
+			return null
 		}
 
 		private fun findClosingPosition(
