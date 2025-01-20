@@ -54,7 +54,7 @@ This plugin brings multiple cursors and selections to `IdeaVim`
 - `E`: Next WORD end
 
 ### Cursor Management
-- `mca`: Add/remove a virtual cursor at current position
+- `mcc`: Add/remove a virtual cursor at current position
 - `mci`: Convert virtual cursors to real cursors (for editing)
 - `mcd`: Delete all virtual cursors
 
@@ -84,7 +84,7 @@ Add these to your `~/.ideavimrc` for faster access:
 map q <Plug>(multicursor-ms/)
 
 " Quick cursor add/apply
-map z <Plug>(multicursor-mca)
+map z <Plug>(multicursor-mcc)
 map Z <Plug>(multicursor-mci)
 
 " Word-based selections
