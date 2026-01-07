@@ -45,7 +45,7 @@ class VimMulticursor : VimExtension {
 		mapToFunctionAndProvideKeys("a\"") { MultiselectTextObjectHandler("\"", "\"", false, it) }
 		mapToFunctionAndProvideKeys("a'") { MultiselectTextObjectHandler("'", "'", false, it) }
 		mapToFunctionAndProvideKeys("a`") { MultiselectTextObjectHandler("`", "`", false, it) }
-		
+
 		// Inside versions
 		mapToFunctionAndProvideKeys("ib") { MultiselectTextObjectHandler("(", ")", true, it) }
 		mapToFunctionAndProvideKeys("iB") { MultiselectTextObjectHandler("{", "}", true, it) }
@@ -71,21 +71,21 @@ class VimMulticursor : VimExtension {
 		override fun execute(editor: Editor, context: DataContext) {
 			val offset = editor.caretModel.primaryCaret.offset
 			val text = editor.document.charsSequence
-			
+
 			// Find word boundaries
 			var start = offset
 			var end = offset
-			
+
 			// Find start of word
 			while (start > 0 && text[start - 1].isLetterOrDigit()) {
 				start--
 			}
-			
+
 			// Find end of word
 			while (end < text.length && text[end].isLetterOrDigit()) {
 				end++
 			}
-			
+
 			// Add carets at word boundaries
 			editor.setCarets(sequenceOf(IntRange(start, start), IntRange(end, end)), false)
 		}
@@ -98,6 +98,9 @@ class VimMulticursor : VimExtension {
 		override fun execute(editor: Editor, context: DataContext) {
 			val panel = ExEntryPanelService().createPanel(editor.vim, context.vim, "/", "")
 			ModalEntry.activate(editor.vim) { key: KeyStroke ->
+				if (key.keyChar == '\n') {
+					return@activate true
+				}
 				return@activate when (key.keyCode) {
 					KeyEvent.VK_ESCAPE -> {
 						panel.deactivate(refocusOwningEditor = true, resetCaret = true)
@@ -134,7 +137,7 @@ class VimMulticursor : VimExtension {
 		override fun execute(editor: Editor, context: DataContext) {
 			val offset = editor.caretModel.primaryCaret.offset
 			val text = editor.document.charsSequence
-			
+
 			// Define all possible pairs
 			val pairs = listOf(
 				"(" to ")",
@@ -144,11 +147,11 @@ class VimMulticursor : VimExtension {
 				"'" to "'",
 				"`" to "`"
 			)
-			
+
 			// Find the closest pair
 			var closestRange: Pair<IntRange, IntRange>? = null
 			var minDistance = Int.MAX_VALUE
-			
+
 			for ((openDelim, closeDelim) in pairs) {
 				val range = findPairedRange(text, offset, openDelim, closeDelim)
 				if (range != null) {
@@ -164,7 +167,7 @@ class VimMulticursor : VimExtension {
 					}
 				}
 			}
-			
+
 			if (closestRange != null) {
 				var (start, end) = closestRange
 				if (inside) {
@@ -209,7 +212,7 @@ class VimMulticursor : VimExtension {
 			val text = editor.document.charsSequence
 			val selections = editor.selections()
 			val ranges = mutableListOf<IntRange>()
-			
+
 			if (selections.count() > 0) {
 				// If there are selections, only search within them
 				for (selection in selections) {
@@ -227,7 +230,7 @@ class VimMulticursor : VimExtension {
 			} else {
 				// No selections, search in entire document
 				val caretOffset = editor.caretModel.primaryCaret.offset
-				
+
 				// Search forward from caret
 				var pos = caretOffset
 				while (pos < text.length) {
@@ -237,7 +240,7 @@ class VimMulticursor : VimExtension {
 					}
 					pos++
 				}
-				
+
 				// Search backward from caret
 				pos = caretOffset - 1
 				while (pos >= 0) {
@@ -248,7 +251,7 @@ class VimMulticursor : VimExtension {
 					pos--
 				}
 			}
-			
+
 			if (ranges.isNotEmpty()) {
 				editor.setCarets(ranges.asSequence(), select)
 			}
