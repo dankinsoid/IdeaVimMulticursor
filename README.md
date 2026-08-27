@@ -2,14 +2,14 @@
 
 VimMulticursor
 ===
-![Build](https://github.com/dankinsoid/VimMulticursor/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/19162-VimMulticursor.svg)](https://plusins.jetbrains.com/plugin/19162-VimMulticursor)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/19162-VimMulticursor.svg)](https://plugins.jetbrains.com/plugin/19162-VimMulticursor)
+![Build](https://github.com/dankinsoid/IdeaVimMulticursor/workflows/Build/badge.svg)
+[![Version](https://img.shields.io/jetbrains/plugin/v/com.github.dankinsoid.multicursor.svg)](https://plugins.jetbrains.com/plugin/19162-vimmulticursor)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/com.github.dankinsoid.multicursor.svg)](https://plugins.jetbrains.com/plugin/19162-vimmulticursor)
 
 <!-- Plugin description -->
 This plugin adds multiple cursor and selection capabilities to `IdeaVim`
 
-![Preview](https://github.com/dankinsoid/VimMulticursor/blob/main/preview.gif?raw=true)
+![Preview](https://github.com/dankinsoid/IdeaVimMulticursor/blob/main/preview.gif?raw=true)
 
 ## Installation & Setup
 
@@ -116,7 +116,7 @@ Plugin icon is merged icons of IdeaVim plugin and a random sneaker by FreePic fr
   
 - Manually:
 
-  Download the [latest release](https://github.com/dankinsoid/VimMulticursor/releases/latest) and install it manually using
+  Download the [latest release](https://github.com/dankinsoid/IdeaVimMulticursor/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 
